@@ -1,25 +1,24 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  Platform,
-  Animated,
-} from "react-native";
+import { StyleSheet, View, Platform, Animated } from "react-native";
 
 const SmallMenu = (props) => {
   const animations = StyleSheet.create({
+    firstBar: {
+      shadowOpacity: props.scrollY.interpolate({
+        inputRange: [0, 10],
+        outputRange: [0.05, 0],
+      }),
+    },
     text: {
       opacity: props.scrollY.interpolate({
-        inputRange: [0, 250, 250.2],
-        outputRange: [1, 1, 0],
+        inputRange: [0, 10, 250.2],
+        outputRange: [1, 0, 0],
       }),
     },
     img1Height: {
       height: props.scrollY.interpolate({
         inputRange: [0, 250.2],
-        outputRange: [50, 45],
+        outputRange: [50, 50],
       }),
     },
     img2Height: {
@@ -31,7 +30,7 @@ const SmallMenu = (props) => {
     img3Height: {
       height: props.scrollY.interpolate({
         inputRange: [0, 250.2],
-        outputRange: [50, 38],
+        outputRange: [50, 36],
       }),
     },
     container: {
@@ -53,13 +52,13 @@ const SmallMenu = (props) => {
       }),
       marginLeft: props.scrollY.interpolate({
         inputRange: [0, 250.2],
-        outputRange: [0, 20],
+        outputRange: [0, 30],
       }),
       transform: [
         {
           translateX: props.scrollY.interpolate({
             inputRange: [0, 250.2],
-            outputRange: [1, 60],
+            outputRange: [1, 5],
           }),
         },
       ],
@@ -76,7 +75,7 @@ const SmallMenu = (props) => {
     },
   });
   return (
-    <View style={styles.firstBar}>
+    <Animated.View style={[styles.firstBar, animations.firstBar]}>
       <Animated.View style={[styles.animated]}>
         <Animated.View
           style={[styles.navCont, styles.napTien, animations.container]}
@@ -139,7 +138,7 @@ const SmallMenu = (props) => {
           </Animated.Text>
         </Animated.View>
       </Animated.View>
-    </View>
+    </Animated.View>
   );
 };
 

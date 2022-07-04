@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     paddingTop: 2,
     borderRadius: 8,
+    overflow: "hidden",
     textAlign: "center",
     textAlignVertical: "top",
     position: "absolute",

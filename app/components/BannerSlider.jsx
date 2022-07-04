@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Image, View, ScrollView } from "react-native";
+import { StyleSheet, Image, View, ScrollView, Platform } from "react-native";
 
 const banners = [
   "https://vidientu.vnpay.vn/images/web/banner/17f1b446c710000000000000294.png",
