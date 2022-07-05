@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, Image, View, Platform } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  Platform,
+  Animated,
+} from "react-native";
 import {
   MaterialCommunityIcons,
   MaterialIcons,
@@ -8,9 +15,17 @@ import {
   AntDesign,
 } from "@expo/vector-icons";
 
-const BigMenu = () => {
+const BigMenu = (props) => {
+  const animations = StyleSheet.create({
+    container: {
+      zIndex: props.scrollY.interpolate({
+        inputRange: [0, 250.2],
+        outputRange: [0, 4],
+      }),
+    },
+  });
   return (
-    <View style={styles.secondBar}>
+    <Animated.View style={[styles.secondBar, animations.container]}>
       <Text style={styles.trademark}>VNPAY</Text>
       <View style={styles.barRows}>
         <View style={styles.navCont}>
@@ -145,7 +160,7 @@ const BigMenu = () => {
           <Text style={styles.hotTag}>HOT</Text>
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

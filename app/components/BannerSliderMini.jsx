@@ -14,25 +14,11 @@ const imgWidth = 368;
 const margin = (imgConWidth - imgWidth) / 2;
 
 class BannerSliderMini extends React.Component {
-  state = { active: 0, isLoading: true };
+  _isMounted = false;
 
   constructor(props) {
     super(props);
-    this._isMounted = false;
-    setInterval(() => {
-      this.setState(
-        (prev) => ({
-          active: prev.active === banners.length - 1 ? 0 : prev.active + 1,
-        }),
-        () => {
-          this.scrollRef.current.scrollTo({
-            animated: true,
-            y: 0,
-            x: imgConWidth * this.state.active,
-          });
-        }
-      );
-    }, 5000);
+    this.state = { active: 0, isLoadings: true };
   }
 
   scrollRef = React.createRef();
@@ -40,7 +26,20 @@ class BannerSliderMini extends React.Component {
   componentDidMount = () => {
     this._isMounted = true;
     if (this._isMounted) {
-      this.setState({ isLoading: false });
+      setInterval(() => {
+        this.setState(
+          (prev) => ({
+            active: prev.active === banners.length - 1 ? 0 : prev.active + 1,
+          }),
+          () => {
+            this.scrollRef.current.scrollTo({
+              animated: true,
+              y: 0,
+              x: imgConWidth * this.state.active,
+            });
+          }
+        );
+      }, 5000);
     }
   };
 

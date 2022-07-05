@@ -6,11 +6,25 @@ import {
   View,
   Platform,
   Animated,
+  Alert,
 } from "react-native";
-
+import { Ionicons } from "@expo/vector-icons";
 const HomeHeader = (props) => {
+  function currencyFormat(num) {
+    return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
   return (
-    <View style={styles.header}>
+    <Animated.View
+      style={[
+        styles.header,
+        {
+          zIndex: props.scrollY.interpolate({
+            inputRange: [0, 250, 250.2],
+            outputRange: [0, 0, 5],
+          }),
+        },
+      ]}
+    >
       <Animated.View
         style={[
           styles.animatedView,
@@ -31,12 +45,40 @@ const HomeHeader = (props) => {
           />
         </View>
         <View style={styles.loginBar}>
-          <Text style={styles.greet}>Xin chào!</Text>
-          <Text style={styles.login}>Đăng nhập/Đăng ký</Text>
+          <Text style={styles.greet}>NGUYỄN VĂN A</Text>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <Text style={styles.balance}>Số dư (VND):</Text>
+            <Text style={styles.balanceValue}>
+              {props.eyeOn ? currencyFormat(props.balance) : "******"}
+            </Text>
+            <View
+              style={styles.eye}
+              onStartShouldSetResponder={props.handlePress}
+            >
+              <Ionicons
+                style={[
+                  styles.eyeOn,
+                  { display: props.eyeOn ? "flex" : "none" },
+                ]}
+                name="eye"
+                size={22}
+                color="#FFAA4F"
+              />
+              <Ionicons
+                style={[
+                  styles.eyeOff,
+                  { display: props.eyeOn ? "none" : "flex" },
+                ]}
+                name="eye-off-sharp"
+                size={22}
+                color="#FFAA4F"
+              />
+            </View>
+          </View>
         </View>
         <Image style={styles.logo} source={require("../assets/logo2.png")} />
       </Animated.View>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -83,12 +125,19 @@ const styles = StyleSheet.create({
   loginBar: {
     marginLeft: 15,
   },
-  login: {
-    fontWeight: "bold",
-    fontSize: Platform.OS === "android" ? 16 : 14,
-    color: "#0C62AF",
+  balance: {
+    fontWeight: "500",
+    fontSize: Platform.OS === "android" ? 14 : 14,
+    color: "black",
     marginTop: Platform.OS === "android" ? 1 : 3,
     letterSpacing: 0.3,
+  },
+  balanceValue: {
+    marginLeft: 2,
+    fontWeight: "500",
+    fontSize: Platform.OS === "android" ? 14.5 : 14,
+    color: "blue",
+    marginTop: Platform.OS === "android" ? 1 : 3,
   },
   logo: {
     width: 76,
@@ -96,5 +145,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: -10,
     top: 0,
+  },
+  eye: {
+    marginLeft: 7,
+  },
+  eyeOn: {
+    position: "absolute",
+  },
+  eyeOff: {
+    position: "absolute",
   },
 });

@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { Component } from "react";
 import {
   Platform,
   SafeAreaView,
@@ -14,46 +14,72 @@ import SmallMenu from "../components/SmallMenu.jsx";
 import HomeHeader from "../components/HomeHeader.jsx";
 import HomeFooter from "../components/HomeFooter.jsx";
 
-const HomeScreen = () => {
-  const scrollY = new Animated.Value(0);
-  const translateY = scrollY.interpolate({
-    inputRange: [0, 76.2],
-    outputRange: [0, -76.2],
-  });
-  const translateZI = scrollY.interpolate({
-    inputRange: [0, 250, 250.2],
-    outputRange: [0, 0, 1],
-  });
+class HomeScreen extends Component {
+  state = {
+    balance: 1234,
+    eyeOn: false,
+  };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* main */}
-      <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        style={[styles.main, { zIndex: translateZI }]}
-        onScroll={(e) => {
-          scrollY.setValue(e.nativeEvent.contentOffset.y);
-        }}
-        scrollEventThrottle={20}
-        snapToInterval={Platform.OS === "android" ? 270 : 288}
-        snapToAlignment={"start"}
-      >
-        <BannerSlider />
-        <SmallMenu scrollY={scrollY} />
-        <BigMenu />
-        <BannerSliderMini />
-      </Animated.ScrollView>
-      {/* HEADER */}
-      <HomeFooter scrollY={scrollY} />
+  constructor() {
+    super();
+  }
 
-      <HomeHeader y={translateY} />
+  scrollY = new Animated.Value(0);
 
-      {/* FOOTER */}
+  balanceHide = () => {
+    this.state.eyeOn
+      ? this.setState({ eyeOn: false })
+      : this.setState({ eyeOn: true });
+  };
 
-      <StatusBar style={"auto"} />
-    </SafeAreaView>
-  );
-};
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        {/* main */}
+        <Animated.ScrollView
+          showsVerticalScrollIndicator={false}
+          style={[
+            styles.main,
+            {
+              zIndex: this.scrollY.interpolate({
+                inputRange: [0, 250, 250.2],
+                outputRange: [0, 0, 10],
+              }),
+            },
+          ]}
+          onScroll={(e) => {
+            this.scrollY.setValue(e.nativeEvent.contentOffset.y);
+          }}
+          scrollEventThrottle={20}
+          snapToInterval={Platform.OS === "android" ? 270 : 288}
+          snapToAlignment={"start"}
+        >
+          <BannerSlider />
+          <SmallMenu scrollY={this.scrollY} />
+          <BigMenu scrollY={this.scrollY} />
+          <BannerSliderMini />
+        </Animated.ScrollView>
+        {/* HEADER */}
+
+        <HomeHeader
+          y={this.scrollY.interpolate({
+            inputRange: [0, 76.2],
+            outputRange: [0, -76.2],
+          })}
+          scrollY={this.scrollY}
+          balance={this.state.balance}
+          eyeOn={this.state.eyeOn}
+          handlePress={this.balanceHide}
+        />
+
+        {/* FOOTER */}
+        <HomeFooter scrollY={this.scrollY} />
+
+        <StatusBar style={"auto"} />
+      </SafeAreaView>
+    );
+  }
+}
 export default HomeScreen;
 
 const styles = StyleSheet.create({

@@ -62,6 +62,10 @@ const SmallMenu = (props) => {
           }),
         },
       ],
+      zIndex: props.scrollY.interpolate({
+        inputRange: [0, 250.2],
+        outputRange: [0, 10],
+      }),
     },
     imgTransformY: {
       transform: [
