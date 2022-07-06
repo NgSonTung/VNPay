@@ -79,7 +79,10 @@ const SmallMenu = (props) => {
     },
   });
   return (
-    <Animated.View style={[styles.firstBar, animations.firstBar]}>
+    <Animated.View
+      ref={props.reference}
+      style={[styles.firstBar, animations.firstBar]}
+    >
       <Animated.View style={[styles.animated]}>
         <Animated.View
           style={[styles.navCont, styles.napTien, animations.container]}
