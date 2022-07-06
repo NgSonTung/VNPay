@@ -93,7 +93,7 @@ class HomeScreen extends Component {
         {/* FOOTER */}
         <HomeFooter scrollY={this.scrollY} />
 
-        <StatusBar style={"auto"} />
+        <StatusBar hidden style={"auto"} />
       </SafeAreaView>
     );
   }

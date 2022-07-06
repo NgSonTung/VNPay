@@ -16,8 +16,13 @@ const banners = [
 const windowHeight = Dimensions.get("window").height;
 const marginBottom =
   windowHeight < 865.2
-    ? 230 - (865.2 - windowHeight)
-    : 230 + (865.2 - windowHeight);
+    ? Platform.OS === "android"
+      ? 230 - 865.2 + windowHeight
+      : 260 - 865.2 + windowHeight
+    : Platform.OS === "android"
+    ? 230 + 865.2 - windowHeight
+    : 260 + 865.2 - windowHeight;
+
 const imgConHeight = 100;
 const imgConWidth = 380;
 const imgHeight = imgConHeight;
@@ -26,7 +31,7 @@ const margin = (imgConWidth - imgWidth) / 2;
 
 class BannerSliderMini extends React.Component {
   _isMounted = false;
-
+  timeout = 0;
   constructor(props) {
     super(props);
     this.state = { active: 0, isLoadings: true };
@@ -37,7 +42,7 @@ class BannerSliderMini extends React.Component {
   componentDidMount = () => {
     this._isMounted = true;
     if (this._isMounted) {
-      setInterval(() => {
+      this.timeout = setInterval(() => {
         this.setState(
           (prev) => ({
             active: prev.active === banners.length - 1 ? 0 : prev.active + 1,
@@ -56,7 +61,7 @@ class BannerSliderMini extends React.Component {
 
   componentWillUnmount() {
     this._isMounted = false;
-    clearInterval(this.timer);
+    clearInterval(this.timeout);
   }
 
   change = ({ nativeEvent }) => {

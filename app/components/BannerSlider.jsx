@@ -15,10 +15,10 @@ const margin = (imgConWidth - imgWidth) / 2;
 
 class BannerSlider extends React.Component {
   _isMounted = false;
-
+  timeout = 0;
   constructor(props) {
     super(props);
-    this.state = { active: 0, isLoading: true };
+    this.state = { active: 0, isLoadings: true };
   }
 
   scrollRef = React.createRef();
@@ -26,7 +26,7 @@ class BannerSlider extends React.Component {
   componentDidMount = () => {
     this._isMounted = true;
     if (this._isMounted) {
-      setInterval(() => {
+      this.timeout = setInterval(() => {
         this.setState(
           (prev) => ({
             active: prev.active === banners.length - 1 ? 0 : prev.active + 1,
@@ -40,13 +40,12 @@ class BannerSlider extends React.Component {
           }
         );
       }, 5000);
-      this.setState({ isLoading: false });
     }
   };
 
   componentWillUnmount() {
     this._isMounted = false;
-    clearInterval(this.timer);
+    clearInterval(this.timeout);
   }
 
   change = ({ nativeEvent }) => {
@@ -57,7 +56,6 @@ class BannerSlider extends React.Component {
       this.setState({ active: slide });
     }
   };
-
   render() {
     return (
       <View style={{ marginTop: 17 }}>
