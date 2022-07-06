@@ -1,12 +1,23 @@
 import React from "react";
-import { StyleSheet, Image, View, ScrollView, Platform } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  View,
+  ScrollView,
+  Platform,
+  Dimensions,
+} from "react-native";
 
 const banners = [
   "https://vidientu.vnpay.vn/images/web/banner/17f1b446c710000000000000294.png",
   "https://vidientu.vnpay.vn/images/web/banner/181615fd1e40000000000000006.jpeg",
   "https://vidientu.vnpay.vn/images/web/banner/17f1b446c710000000000000321.jpeg",
 ];
-
+const windowHeight = Dimensions.get("window").height;
+const marginBottom =
+  windowHeight < 865.2
+    ? 230 - (865.2 - windowHeight)
+    : 230 + (865.2 - windowHeight);
 const imgConHeight = 100;
 const imgConWidth = 380;
 const imgHeight = imgConHeight;
@@ -45,6 +56,7 @@ class BannerSliderMini extends React.Component {
 
   componentWillUnmount() {
     this._isMounted = false;
+    clearInterval(this.timer);
   }
 
   change = ({ nativeEvent }) => {
@@ -58,11 +70,16 @@ class BannerSliderMini extends React.Component {
 
   render() {
     return (
-      <View style={{ marginBottom: 105, zIndex: -1 }}>
+      <View
+        onLayout={this.props.onLayout}
+        style={{
+          marginBottom: marginBottom,
+          zIndex: -1,
+        }}
+      >
         <View
           style={{
             marginTop: 17,
-            marginBottom: Platform.OS === "android" ? 50 : 30,
           }}
         >
           <ScrollView

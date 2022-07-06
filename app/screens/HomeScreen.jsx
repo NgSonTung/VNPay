@@ -6,6 +6,9 @@ import {
   StatusBar,
   Animated,
   StyleSheet,
+  Alert,
+  UIManager,
+  findNodeHandle,
 } from "react-native";
 import BannerSlider from "../components/BannerSlider.jsx";
 import BannerSliderMini from "../components/BannerSliderMini.jsx";
@@ -18,18 +21,22 @@ class HomeScreen extends Component {
   state = {
     balance: 1234,
     eyeOn: false,
+    loggedIn: true,
+    smallMenu: {},
   };
-
   constructor() {
     super();
   }
-
   scrollY = new Animated.Value(0);
-
   balanceHide = () => {
     this.state.eyeOn
       ? this.setState({ eyeOn: false })
       : this.setState({ eyeOn: true });
+  };
+  logIn = () => {
+    if (!this.state.loggedIn) {
+      Alert.alert("cc");
+    }
   };
 
   render() {
@@ -55,9 +62,18 @@ class HomeScreen extends Component {
           snapToAlignment={"start"}
         >
           <BannerSlider />
-          <SmallMenu scrollY={this.scrollY} />
+          <SmallMenu
+            reference={(ref) => (this.view = ref)}
+            scrollY={this.scrollY}
+          />
           <BigMenu scrollY={this.scrollY} />
-          <BannerSliderMini />
+          <BannerSliderMini
+            onLayout={({ nativeEvent }) => {
+              this.setState({ smallMenu: nativeEvent.layout });
+            }}
+            menuHeight={this.state.smallMenu.height}
+            menuY={this.state.smallMenu.y}
+          />
         </Animated.ScrollView>
         {/* HEADER */}
 
@@ -70,6 +86,8 @@ class HomeScreen extends Component {
           balance={this.state.balance}
           eyeOn={this.state.eyeOn}
           handlePress={this.balanceHide}
+          loggedIn={this.state.loggedIn}
+          logIn={this.logIn}
         />
 
         {/* FOOTER */}

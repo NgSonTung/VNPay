@@ -46,6 +46,7 @@ class BannerSlider extends React.Component {
 
   componentWillUnmount() {
     this._isMounted = false;
+    clearInterval(this.timer);
   }
 
   change = ({ nativeEvent }) => {
