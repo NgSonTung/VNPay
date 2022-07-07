@@ -19,7 +19,7 @@ import HomeFooter from "../components/HomeFooter.jsx";
 
 class HomeScreen extends Component {
   state = {
-    balance: 1234,
+    balance: 120034,
     eyeOn: false,
     loggedIn: true,
     smallMenu: {},
@@ -75,6 +75,7 @@ class HomeScreen extends Component {
             menuY={this.state.smallMenu.y}
           />
         </Animated.ScrollView>
+
         {/* HEADER */}
 
         <HomeHeader

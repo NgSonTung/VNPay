@@ -17,10 +17,10 @@ const windowHeight = Dimensions.get("window").height;
 const marginBottom =
   windowHeight < 865.2
     ? Platform.OS === "android"
-      ? 230 - 865.2 + windowHeight
+      ? 255 - 865.2 + windowHeight
       : 260 - 865.2 + windowHeight
     : Platform.OS === "android"
-    ? 230 + 865.2 - windowHeight
+    ? 255 + 865.2 - windowHeight
     : 260 + 865.2 - windowHeight;
 
 const imgConHeight = 100;

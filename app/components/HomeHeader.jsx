@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   header: {
     position: "absolute",
     width: "100%",
-    zIndex: 5,
+    zIndex: -1,
     elevation: 2,
     top: 0,
     paddingVertical: 15,
