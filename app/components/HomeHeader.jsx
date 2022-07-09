@@ -12,33 +12,45 @@ import { Ionicons } from "@expo/vector-icons";
 const HomeHeader = (props) => {
   const loggedIn = () => {
     return (
-      <View style={{ flex: 1, flexDirection: "row" }}>
-        <Text style={styles.balance}>Số dư (VND):</Text>
-        <Text style={styles.balanceValue}>
-          {props.eyeOn ? currencyFormat(props.balance) : "******"}
-        </Text>
-        <View style={styles.eye} onStartShouldSetResponder={props.handlePress}>
-          <Ionicons
-            style={[styles.eyeOn, { display: props.eyeOn ? "flex" : "none" }]}
-            name="eye"
-            size={22}
-            color="#FFAA4F"
-          />
-          <Ionicons
-            style={[styles.eyeOff, { display: props.eyeOn ? "none" : "flex" }]}
-            name="eye-off-sharp"
-            size={22}
-            color="#FFAA4F"
-          />
+      <View style={{ flex: 1, flexDirection: "column" }}>
+        <Text style={styles.greet}>{props.name}</Text>
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <Text style={styles.balance}>Số dư (VND):</Text>
+          <Text style={styles.balanceValue}>
+            {props.eyeOn ? currencyFormat(props.balance) : "******"}
+          </Text>
+          <View
+            style={styles.eye}
+            onStartShouldSetResponder={props.handlePress}
+          >
+            <Ionicons
+              style={[styles.eyeOn, { display: props.eyeOn ? "flex" : "none" }]}
+              name="eye"
+              size={22}
+              color="#FFAA4F"
+            />
+            <Ionicons
+              style={[
+                styles.eyeOff,
+                { display: props.eyeOn ? "none" : "flex" },
+              ]}
+              name="eye-off-sharp"
+              size={22}
+              color="#FFAA4F"
+            />
+          </View>
         </View>
       </View>
     );
   };
   const loggedOut = () => {
     return (
-      <Text onPress={() => props.logIn} style={styles.loggedOut}>
-        Đăng nhập/Đăng kí
-      </Text>
+      <View style={{ flex: 1, flexDirection: "column" }}>
+        <Text style={styles.greet}>Xin chào!</Text>
+        <Text onPress={() => props.logIn} style={styles.loggedOut}>
+          Đăng nhập/Đăng kí
+        </Text>
+      </View>
     );
   };
   const currencyFormat = (num) => {
@@ -76,7 +88,6 @@ const HomeHeader = (props) => {
           />
         </View>
         <View style={styles.loginBar}>
-          <Text style={styles.greet}>NGUYỄN VĂN A</Text>
           {props.loggedIn ? loggedIn() : loggedOut()}
         </View>
         <Image style={styles.logo} source={require("../assets/logo2.png")} />

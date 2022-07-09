@@ -7,8 +7,6 @@ import {
   Animated,
   StyleSheet,
   Alert,
-  UIManager,
-  findNodeHandle,
 } from "react-native";
 import BannerSlider from "../components/BannerSlider.jsx";
 import BannerSliderMini from "../components/BannerSliderMini.jsx";
@@ -21,8 +19,9 @@ class HomeScreen extends Component {
   state = {
     balance: 120034,
     eyeOn: false,
-    loggedIn: true,
+    loggedIn: false,
     smallMenu: {},
+    name: "NGUYỄN VĂN A",
   };
   constructor() {
     super();
@@ -89,6 +88,7 @@ class HomeScreen extends Component {
           handlePress={this.balanceHide}
           loggedIn={this.state.loggedIn}
           logIn={this.logIn}
+          name={this.state.name}
         />
 
         {/* FOOTER */}
