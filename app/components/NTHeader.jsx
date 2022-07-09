@@ -22,13 +22,13 @@ export default function NTHeader(){
 
             <View style={styles.headerCT_Balance}>
                 <Image 
-                    source={require("../assets/datvetau.png")}
+                    source={require("../assets/Vnpay_Logo.png")}
                     style={styles.icon}
                 />
                 <View>
                     <Text style={styles.VNP}>Ví VNPAY</Text>
                     <View style={styles.Money}>
-                        <Text style={styles.Currentcy}>{Show ? "123456" : "******"} </Text>
+                        <Text style={styles.Currentcy}>{Show ? "123456" : "••••••"} </Text>
                         <Pressable onPress={showBalance}>
                             <Text> <Ionicons name="eye-off-sharp" size={20} color="gold" /> </Text>
                         </Pressable>
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     },
 
     icon:{
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
         marginRight: 10,
     },
 
