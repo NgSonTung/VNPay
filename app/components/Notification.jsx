@@ -1,4 +1,3 @@
-
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import {
@@ -7,42 +6,68 @@ import {
     Image,
     View,
     Platform,
-    Animated,
     SafeAreaView,
     ScrollView
   } from "react-native";
 import Searchbar from "./Searchbar";
-
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 
 const Tab = createMaterialTopTabNavigator();
 
-const a = () => {
+function Khuyenmai() {
   return(
-    <View style={styles.container}>
-        <Text style={styles.text} >Khuyến mại</Text>
+    <View>
+      <Text style={styles.textTab}>khuyenmai</Text>
     </View>
   )
 }
-const b = () => {
+function Giaodich() {
   return(
     <View style={styles.container}>
-        <Text style={styles.text} >Giao dịch</Text>
+      <Text style={styles.textTab}>giao dich</Text>
     </View>
   )
 }
-const c = () => {
+function Biendong() {
   return(
     <View style={styles.container}>
-        <Text style={styles.text} >Biến động số dư</Text>
+      <Text style={styles.textTab}>bien dong</Text>
     </View>
   )
 }
-const d = () => {
+function Khac() {
   return(
     <View style={styles.container}>
-        <Text style={styles.text} >Khác</Text>
+      <Text style={styles.textTab}>khac</Text>
     </View>
+  )
+}
+
+function MyTab(){
+  return(
+    <Tab.Navigator initialRouteName="home" 
+      tabBarOpions={{
+        activeTintColor: "red",
+        labelStyle: {fontSize:12},
+        style: {backgroundColor: "white"}
+      }}>   
+        <Tab.Screen name='Khuyến mại' 
+          component = {Khuyenmai}
+          opions={{ tabBarLabel: "Khuyến mại"}}>
+        </Tab.Screen>
+        <Tab.Screen name='Giao dịch' 
+          component = {Giaodich}
+          opions={{ tabBarLabel: "Giao dịch"}}>
+        </Tab.Screen>
+        <Tab.Screen name='Biến động số dư'
+          component = {Biendong}
+          opions={{ tabBarLabel: "Biến động"}}>
+        </Tab.Screen>
+        <Tab.Screen name='Khác' 
+          component = {Khac}
+          opions={{ tabBarLabel: "Khác"}}>
+        </Tab.Screen>
+    </Tab.Navigator>
   )
 }
 
@@ -54,24 +79,11 @@ const d = () => {
             <Text  style={[styles.navDesc, styles.navIcons]}> Thông báo </Text>
             <View>
               <Searchbar/>
-            </View>
-            <NavigationContainer>
-              <Tab.Navigator>
-                <Tab.Screen name='Khuyenmai' component = {a}></Tab.Screen>
-                <Tab.Screen name='Giaodich' component = {b}></Tab.Screen>
-                <Tab.Screen name='Biendong' component = {c}></Tab.Screen>
-                <Tab.Screen name='Khac' component = {d}></Tab.Screen>
-              </Tab.Navigator>
-            </NavigationContainer>
+            </View>   
           </SafeAreaView>
-
-          <View style={{height :'100%'}} > 
-            <ScrollView style={[styles.scollview]}>
-              <View>
-
-              </View>
-            </ScrollView>
-          </View>
+            <NavigationContainer>
+                <MyTab/>
+            </NavigationContainer>
       </View>
     )
   }
@@ -83,7 +95,7 @@ const d = () => {
       marginTop: 50,
       resizeMode: "contain",
       height: 20,
-      aspectRatio: 1,
+      aspectRatio: 1
       
     },
     navDesc: {
@@ -91,13 +103,19 @@ const d = () => {
       color: "#4f5964",
       textAlign: "center",
       fontSize: 22,
-      fontWeight: Platform.OS === "android" ? "bold" : "600",
+      fontWeight: Platform.OS === "android" ? "bold" : "600"
     },
     scollview:{
       marginTop: 50,
       backgroundColor: "#f8f9fa"
     },
-    notion:{
-      
+    container:{
+      flex: 1,
+      justifyContent: "center",
+      alignContent: "center"
+    },
+    textTab: {
+      fontSize: 20,
+      color: "black"
     }
-  });
+  })
