@@ -16,7 +16,7 @@ const Tab = createMaterialTopTabNavigator();
 
 function Khuyenmai() {
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.textTab}>khuyenmai</Text>
     </View>
   );
@@ -24,7 +24,7 @@ function Khuyenmai() {
 function Giaodich() {
   return (
     <View style={styles.container}>
-      <Text style={styles.textTab}>giao dich</Text>
+      <Text style={styles.textTab}>giaodich</Text>
     </View>
   );
 }
@@ -45,14 +45,7 @@ function Khac() {
 
 function MyTab() {
   return (
-    <Tab.Navigator
-      initialRouteName="home"
-      tabBarOpions={{
-        activeTintColor: "red",
-        labelStyle: { fontSize: 12 },
-        style: { backgroundColor: "white" },
-      }}
-    >
+    <Tab.Navigator>
       <Tab.Screen
         name="Khuyến mại"
         component={Khuyenmai}
@@ -79,7 +72,7 @@ function MyTab() {
 
 const Notification = () => {
   return (
-    <View>
+    <>
       <SafeAreaView background="white">
         <Image style={styles.barIcons} source={require("../assets/back.png")} />
         <Text style={[styles.navDesc, styles.navIcons]}> Thông báo </Text>
@@ -90,7 +83,7 @@ const Notification = () => {
       <NavigationContainer>
         <MyTab />
       </NavigationContainer>
-    </View>
+    </>
   );
 };
 export default Notification;
@@ -109,10 +102,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 22,
     fontWeight: Platform.OS === "android" ? "bold" : "600",
-  },
-  scollview: {
-    marginTop: 50,
-    backgroundColor: "#f8f9fa",
   },
   container: {
     flex: 1,
