@@ -17,7 +17,6 @@ import {
 } from "@expo/vector-icons";
 import SvgComponent from "../assets/bottomBar.jsx";
 import { NavigationContainer } from "@react-navigation/native";
-import Searchbar from "./Searchbar";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import Searchbar1 from "./Searchbar1.jsx";
 
@@ -25,8 +24,12 @@ const Tab = createMaterialTopTabNavigator();
 
 function Quatang() {
   return(
-    <View style={styles.container}>
-      <Text style={styles.textTab}>khuyenmai</Text>
+    <View style={styles.coupon}>
+      <Image style={styles.icon} source={require("../assets/Coupon.png")} />
+      <Text style={styles.textcoupon1}>VISA50K - Giảm 50K cho đơn từ 199K khi sử dụng các dịch</Text>
+      <Text style={styles.textcoupon2}>HSD: 06/12/2022</Text>
+      <Text style={styles.textcoupon3}>SỬ DỤNG</Text>
+      <View style={styles.line}/>
     </View>
   )
 }
@@ -40,7 +43,7 @@ function Magiamgia() {
 function Dasudung() {
   return(
     <View style={styles.container}>
-      <Text style={styles.textTab}>bien dong</Text>
+      <Text style={styles.textTab}></Text>
     </View>
   )
 }
@@ -206,5 +209,45 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     fontWeight: Platform.OS === "android" ? "bold" : "600"
+  },
+  coupon:{
+    marginTop: 20,
+    backgroundColor: "white",
+    height: 120,
+    width: 320,
+    marginLeft: 20,
+    borderRadius: 15
+  },
+  icon:{
+    marginTop: 25,
+    marginLeft: 6
+  },
+  textcoupon1:{
+    fontWeight: Platform.OS === "android" ? "bold" : "600",
+    fontSize: 15,
+    color: "#4f5964",
+    marginLeft: 100,
+    marginTop: -75
+  },
+  textcoupon2:{
+    fontWeight: Platform.OS === "android" ? "bold" : "100",
+    color: "lightgray",
+    marginLeft: 100,
+    marginTop: 19
+  },
+  textcoupon3:{
+    fontWeight: Platform.OS === "android" ? "bold" : "100",
+    color: "#005eb0",
+    marginLeft: 240,
+    marginTop: -19
+  },
+  line:{
+    borderBottomColor: 'lightgray',
+    borderBottomWidth: 1,
+    transform: [{ rotate: "90deg" }],
+    marginLeft: 20,
+    marginTop: -38,
+    width:120
   }
+
 });
