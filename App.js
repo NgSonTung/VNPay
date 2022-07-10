@@ -5,13 +5,15 @@ import LoginScreen from './app/screens/LoginScreen';
 import Notification from './app/components/Notification';
 import NTHeader from './app/components/NTHeader'
 import NTHead from './app/screens/NapTien';
+import Gift from './app/components/Gift';
 
 
 export default function App() {
   return (
     //<HomeScreen/>
     //<NTHead />
-    <Notification/>
+    //<Notification/>
+    <Gift/>
   );
 }
 
