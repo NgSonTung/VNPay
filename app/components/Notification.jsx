@@ -19,14 +19,14 @@ const Tab = createMaterialTopTabNavigator();
 function Khuyenmai() {
   return (
     <View style={styles.container}>
-      <Text style={styles.textTab}>khuyenmai</Text>
+      <Text style={styles.textTab}></Text>
     </View>
   );
 }
 function Giaodich() {
   return (
     <View style={styles.container}>
-      <Image style={styles.icons } source={require("../assets/email.png")} />
+      <Image style={styles.icons } source={require("../assets/Untitled.png")} />
       <Text style={styles.textTab}> Quý khách chưa có thông báo nào </Text>
     </View>
   );
@@ -34,16 +34,21 @@ function Giaodich() {
 function Biendong() {
   return (
     <View style={styles.container}>
-      <Image style={styles.icons } source={require("../assets/email.png")} />
+      <Image style={styles.icons } source={require("../assets/Untitled.png")} />
       <Text style={styles.textTab}> Quý khách chưa có thông báo nào </Text>
     </View>
   );
 }
 function Khac() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.textTab}>khac</Text>
-    </View>
+      <><Text style={styles.text1}>HÔM NAY, 11/07/2022</Text><View style={styles.khac}>
+      <Image style={styles.logo} source={require("../assets/unnamed.png")} />
+      <Text style={styles.text2}>Ví điện tử VNPAY</Text>
+      <Image style={styles.logo2} source={require("../assets/read.png")} />
+      <Text style={styles.text3}>11/07/2022 13:52</Text>
+      <View style={styles.line1} />
+      <Text style={styles.text4}>Chào mừng bạn đến với hệ thống ví điện tử VNPAY {"\n"}Wallet</Text>
+    </View></>
   );
 }
 
@@ -77,7 +82,7 @@ function MyTab() {
 const Notification = (props) => {
   return (
     <>
-      <SafeAreaView background="white">
+      <SafeAreaView style={{backgroundColor: "white"}}>
         <MaterialIcons
           style={styles.returnBtn}
           name="arrow-back-ios"
@@ -125,6 +130,69 @@ const styles = StyleSheet.create({
   },
   textTab: {
     fontSize: 20,
-    color: "black",
+    color: "gray",
+    fontSize: 17,
+    marginLeft: 60,
+
   },
+  icons:{
+    height: 150,
+    width: 150,
+    borderRadius: 50,
+    marginLeft: 120,
+    marginTop: -100
+  },
+  khac:{
+    flexDirection: "row",
+    backgroundColor: "white",
+    borderRadius: 20,
+    marginTop: 20,
+    height: 130,
+    width: 390,
+    marginLeft: 10,
+    elevation: 9
+  },
+  text1: {
+    color: "gray",
+    marginTop: 20,
+    marginLeft: 20,
+    fontSize: 16
+  },
+  text2: {
+    color: "black",
+    fontSize: 18,
+    fontWeight: Platform.OS === "android" ? "bold" : "600",
+    marginTop: 15,
+     marginLeft: 20
+  },
+  text3: {
+    color: "gray",
+    marginTop: 40,
+    marginLeft: 10
+  },
+  text4: {
+    color: "black",
+    marginLeft: -355,
+    fontSize: 16,
+    marginTop: 80
+  },
+  logo:{
+    height: 40, 
+    width: 40,
+    marginLeft: 15,
+    marginTop: 15
+  },
+  line1:{
+    borderBottomColor: 'lightgray',
+    borderBottomWidth: 1,
+    width: 360,
+    marginLeft: -205,
+    marginBottom: 57
+  },
+  logo2:{
+    height: 15, 
+    width: 15,
+    marginTop: 45,
+    marginLeft: -140
+  }
 });
