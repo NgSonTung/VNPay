@@ -12,8 +12,8 @@ export default function App() {
   return (
     //<HomeScreen/>
     //<NTHead />
-    //<Notification/>
-    <Gift/>
+    <Notification/>
+    //<Gift/>
   );
 }
 
