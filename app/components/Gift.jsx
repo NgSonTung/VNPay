@@ -19,18 +19,23 @@ import SvgComponent from "../assets/bottomBar.jsx";
 import { NavigationContainer } from "@react-navigation/native";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import Searchbar1 from "./Searchbar1.jsx";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Tab = createMaterialTopTabNavigator();
 
 function Quatang() {
   return(
-    <View style={styles.coupon}>
-      <Image style={styles.icon} source={require("../assets/Coupon.png")} />
-      <Text style={styles.textcoupon1}>VISA50K - Giảm 50K cho đơn từ 199K khi sử dụng các dịch</Text>
-      <Text style={styles.textcoupon2}>HSD: 06/12/2022</Text>
-      <Text style={styles.textcoupon3}>SỬ DỤNG</Text>
-      <View style={styles.line}/>
-    </View>
+    <SafeAreaView style={{marginBottom: 70}}>
+      <ScrollView>
+        <View style={styles.coupon}>
+          <Image style={styles.icon} source={require("../assets/Coupon.png")} />
+          <Text style={styles.textcoupon1}>VISA50K - Giảm 50K cho đơn từ 199K khi sử dụng các dịch</Text>
+          <Text style={styles.textcoupon2}>HSD: 06/12/2022</Text>
+          <Text style={styles.textcoupon3}>SỬ DỤNG</Text>
+          <View style={styles.line}/>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 function Magiamgia() {
@@ -50,7 +55,7 @@ function Dasudung() {
 
 function Tab1(){
   return(
-    <Tab.Navigator style={{ marginTop:10 }}>   
+    <Tab.Navigator style={{ marginTop:15 }}>   
         <Tab.Screen name='Quà tặng' 
           component = {Quatang}
           opions={{ tabBarLabel: "Quà tặng"}}>
@@ -196,7 +201,7 @@ const styles = StyleSheet.create({
   barIcons:{
     height: 20,
     width: 20,
-    marginLeft: 315,
+    marginLeft: 360,
     marginTop: 50,
     resizeMode: "contain",
     height: 20,
@@ -207,16 +212,17 @@ const styles = StyleSheet.create({
     marginTop: -18,
     color: "#4f5964",
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: Platform.OS === "android" ? "bold" : "600"
   },
   coupon:{
-    marginTop: 20,
+    flexDirection: "row",
     backgroundColor: "white",
+    borderRadius: 15,
+    marginTop: 20,
     height: 120,
-    width: 320,
+    width: 370,
     marginLeft: 20,
-    borderRadius: 15
   },
   icon:{
     marginTop: 25,
@@ -224,30 +230,35 @@ const styles = StyleSheet.create({
   },
   textcoupon1:{
     fontWeight: Platform.OS === "android" ? "bold" : "600",
-    fontSize: 15,
+    fontSize: 19,
     color: "#4f5964",
-    marginLeft: 100,
-    marginTop: -75
+    marginLeft: 20,
+    marginTop: 20,
+    width:260
   },
   textcoupon2:{
     fontWeight: Platform.OS === "android" ? "bold" : "100",
     color: "lightgray",
-    marginLeft: 100,
-    marginTop: 19
+    marginTop: 80,
+    fontSize: 15,
+    marginLeft: -260
   },
   textcoupon3:{
     fontWeight: Platform.OS === "android" ? "bold" : "100",
     color: "#005eb0",
-    marginLeft: 240,
-    marginTop: -19
+    marginLeft: 60,
+    marginTop: -22,
+    fontSize: 16,
+     marginTop: 79
   },
   line:{
     borderBottomColor: 'lightgray',
     borderBottomWidth: 1,
     transform: [{ rotate: "90deg" }],
-    marginLeft: 20,
-    marginTop: -38,
-    width:120
+    marginLeft: -280,
+    marginTop: 10,
+    width:130
+
   }
 
 });
