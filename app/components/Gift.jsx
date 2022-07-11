@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import React from "react";
 import {
   StyleSheet,
@@ -263,46 +262,3 @@ const styles = StyleSheet.create({
   }
 
 });
-=======
-/*import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
-import {
-    StyleSheet,
-    Text,
-    Image,
-    View,
-    Platform,
-    Animated,
-    SafeAreaView,
-    ScrollView
-  } from "react-native";
-import Searchbar from "./Searchbar";
-
-  const Gift = () => {
-    return (
-      <View> 
-          <SafeAreaView background = 'white' >
-            <Image style={styles.barIcons} source={require("../assets/filter.png")}/>
-            <Text  style={[styles.navDesc, styles.navIcons]}> Quà của tôi </Text>
-            <View>
-              <Searchbar/>
-            </View>
-
-            <NavigationContainer>
-              <Tabnotion/>
-            </NavigationContainer>
-
-          </SafeAreaView>
-
-          <View style={{height :'100%'}} > 
-            <ScrollView style={[styles.scollview]}>
-              <View>
-
-              </View>
-            </ScrollView>
-          </View>
-      </View>
-    )
-  }
-  export default Gift;*/
->>>>>>> Stashed changes
