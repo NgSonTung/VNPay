@@ -6,7 +6,7 @@ import {
   View,
   Platform,
   SafeAreaView,
-  Animated
+  Animated, 
 } from "react-native";
 import {
   SimpleLineIcons,
