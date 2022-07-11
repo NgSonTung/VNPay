@@ -8,8 +8,10 @@ import {
   Platform,
   SafeAreaView,
   ScrollView,
+  TouchableWithoutFeedback,
 } from "react-native";
 import Searchbar from "./Searchbar";
+import { MaterialIcons } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 const Tab = createMaterialTopTabNavigator();
@@ -70,25 +72,36 @@ function MyTab() {
   );
 }
 
-const Notification = () => {
+const Notification = (props) => {
   return (
     <>
       <SafeAreaView background="white">
-        <Image style={styles.barIcons} source={require("../assets/back.png")} />
+        <MaterialIcons
+          style={styles.returnBtn}
+          name="arrow-back-ios"
+          size={19}
+          color="black"
+          onPress={props.navigation.goBack}
+        />
         <Text style={[styles.navDesc, styles.navIcons]}> Thông báo </Text>
         <View>
           <Searchbar />
         </View>
       </SafeAreaView>
-      <NavigationContainer>
-        <MyTab />
-      </NavigationContainer>
+      <MyTab />
     </>
   );
 };
 export default Notification;
 
 const styles = StyleSheet.create({
+  returnBtn: {
+    paddingVertical: 10,
+    paddingHorizontal: 23,
+    position: "absolute",
+    top: 20,
+    zIndex: 10,
+  },
   barIcons: {
     margin: 30,
     marginTop: 50,
@@ -97,7 +110,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   navDesc: {
-    marginTop: -57,
+    marginTop: 30,
     color: "#4f5964",
     textAlign: "center",
     fontSize: 22,

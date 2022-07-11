@@ -38,7 +38,10 @@ const HomeFooter = (props) => {
           <Entypo name="home" size={24} color="black" style={styles.navIcons} />
           <Text style={[styles.navDesc, styles.navIcons]}>Trang chủ</Text>
         </View>
-        <View style={[styles.navCont, styles.notif]}>
+        <View
+          onStartShouldSetResponder={props.notification}
+          style={[styles.navCont, styles.notif]}
+        >
           <MaterialIcons
             name="mail-outline"
             size={24}

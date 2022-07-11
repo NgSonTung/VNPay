@@ -27,6 +27,7 @@ const BigMenu = (props) => {
   return (
     <Animated.View style={[styles.secondBar, animations.container]}>
       <Text style={styles.trademark}>VNPAY</Text>
+
       <View style={styles.barRows}>
         <View style={styles.navCont}>
           <Image

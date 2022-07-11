@@ -1,9 +1,8 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Platform,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
@@ -11,50 +10,14 @@ import {
   TextInput,
   Dimensions,
   KeyboardAvoidingView,
-  Alert,
-  Keyboard,
 } from "react-native";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
-const LoginScreen = () => {
-  const [step, setStep] = useState(1);
-  const [number, setNumber] = useState("");
-  const [isRight, checkNumber] = useState("");
-  const [hidePassword, setHide] = useState("true");
-
-  function handleSubmit() {
-    Keyboard.dismiss();
-    if (number.length == 0) return "thieu";
-    else if (!number.startsWith("09", 0) | isNaN(number)) return "sai";
-    else if (number.length == 10) {
-      setStep(2);
-      return "dung";
-    } else return "sai";
-  }
-
-  function handleLogin() {
-    Keyboard.dismiss();
-    if (number == 123) return true;
-    else {
-      Alert.alert(
-        "Thông báo",
-        "Thông tin đăng nhập không chính xác. Lưu ý: Tài khoản của Quý khách sẽ bị tạm khóa nếu nhập sai quá 5 lần.",
-        [{ text: "Đóng" }]
-      );
-      return false;
-    }
-  }
-
-  function handleHidePassword() {
-    if (hidePassword) return false;
-    else return true;
-  }
-
-  function handleHidePassword() {
-    if (hidePassword) return false;
-    else return true;
-  }
-
+const LoginScreen = (props) => {
+  const login = () => {
+    props.handleLogin();
+    props.number == props.password ? props.navigation.goBack() : null;
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -67,6 +30,7 @@ const LoginScreen = () => {
           name="arrow-back-ios"
           size={19}
           color="black"
+          onPress={props.navigation.goBack}
         />
         <Image
           style={styles.logo}
@@ -77,9 +41,11 @@ const LoginScreen = () => {
       {/* MAIN */}
       <View style={styles.main}>
         <View style={styles.greetingsCont}>
-          {step == 2 ? <Text style={styles.greetings1}>Xin chào</Text> : null}
+          {props.step == 2 ? (
+            <Text style={styles.greetings1}>Xin chào</Text>
+          ) : null}
           <Text style={styles.greetings2}>
-            {step == 1 ? "Xin chào!" : "Quý khách"}
+            {props.step == 1 ? "Xin chào!" : "Quý khách"}
           </Text>
         </View>
         <Image
@@ -87,7 +53,7 @@ const LoginScreen = () => {
           resizeMode={"contain"}
           source={require("../assets/avatarBig.png")}
         />
-        {step == 1 ? (
+        {props.step == 1 ? (
           <Text style={styles.desc}>
             Quý khách vui lòng nhập SĐT để đăng nhập/đăng ký
           </Text>
@@ -95,22 +61,24 @@ const LoginScreen = () => {
         <View style={styles.eye}>
           <TextInput
             style={styles.input}
-            placeholder={step == 1 ? "Số điện thoại" : "Nhập mật khẩu"}
-            keyboardType={step == 1 ? "phone-pad" : "default"}
+            placeholder={props.step == 1 ? "Số điện thoại" : "Nhập mật khẩu"}
+            keyboardType={props.step == 1 ? "phone-pad" : "default"}
             maxLength={10}
-            secureTextEntry={step == 2 && hidePassword ? true : false}
-            onChangeText={(value) => setNumber((number) => value)}
+            secureTextEntry={
+              props.step == 2 && props.hidePassword ? true : false
+            }
+            onChangeText={(value) => props.setNumber(() => value)}
           />
-          {step == 2 ? (
+          {props.step == 2 ? (
             <View
               onStartShouldSetResponder={() =>
-                setHide(() => handleHidePassword())
+                props.setHide(() => (props.hidePassword ? false : true))
               }
             >
               <Ionicons
                 style={[
                   styles.hide,
-                  { display: hidePassword ? "none" : "flex" },
+                  { display: props.hidePassword ? "none" : "flex" },
                 ]}
                 name="eye"
                 size={17}
@@ -119,7 +87,7 @@ const LoginScreen = () => {
               <Ionicons
                 style={[
                   styles.hide,
-                  { display: hidePassword ? "flex" : "none" },
+                  { display: props.hidePassword ? "flex" : "none" },
                 ]}
                 name="eye-off-sharp"
                 size={17}
@@ -128,7 +96,7 @@ const LoginScreen = () => {
             </View>
           ) : null}
         </View>
-        {isRight == "thieu" ? (
+        {props.isRight == "thieu" ? (
           <View style={styles.errCont}>
             <Ionicons name="ios-warning" size={15} color="#ED1C24" />
             <Text style={styles.errText}>
@@ -136,7 +104,7 @@ const LoginScreen = () => {
             </Text>
           </View>
         ) : null}
-        {isRight == "sai" ? (
+        {props.isRight == "sai" ? (
           <View style={styles.errCont}>
             <Ionicons name="ios-warning" size={15} color="#ED1C24" />
             <Text style={styles.errText}>
@@ -144,19 +112,24 @@ const LoginScreen = () => {
             </Text>
           </View>
         ) : null}
-        <Text style={[styles.forgot, { display: step == 2 ? "flex" : "none" }]}>
+        <Text
+          style={[
+            styles.forgot,
+            { display: props.step == 2 ? "flex" : "none" },
+          ]}
+        >
           Quên mật khẩu?
         </Text>
         <View
           onStartShouldSetResponder={
-            step == 1
-              ? () => checkNumber(() => handleSubmit())
-              : () => handleLogin()
+            props.step == 1
+              ? () => props.checkNumber(() => props.handleSubmit())
+              : () => login()
           }
           style={styles.submitBtn}
         >
           <Text style={styles.submitText}>
-            {step == 1 ? "Tiếp tục" : "Đăng nhập"}
+            {props.step == 1 ? "Tiếp tục" : "Đăng nhập"}
           </Text>
         </View>
       </View>
@@ -216,7 +189,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   avatar: {
-    height: 220,
+    height: "40%",
+    aspectRatio: 1,
   },
   desc: {
     color: "#9B9D9F",
