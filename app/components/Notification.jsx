@@ -16,30 +16,45 @@ const Tab = createMaterialTopTabNavigator();
 
 function Khuyenmai() {
   return(
-    <View style={styles.container}>
-      <Text style={styles.textTab}>khuyenmai</Text>
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+          <Text style={styles.texttime}> HÔM NAY, 11/07/2022</Text>
+          <View style={styles.notification}>
+            <Text style={styles.text}></Text>
+          </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 function Giaodich() {
   return(
     <View style={styles.container}>
-      <Text style={styles.textTab}>giaodich</Text>
+      <Image style={styles.icons } source={require("../assets/email.png")} />
+      <Text style={styles.textTab}> Quý khách chưa có thông báo nào </Text>
     </View>
   )
 }
 function Biendong() {
   return(
     <View style={styles.container}>
-      <Text style={styles.textTab}>bien dong</Text>
+      <Image style={styles.icons } source={require("../assets/email.png")} />
+      <Text style={styles.textTab}> Quý khách chưa có thông báo nào </Text>
     </View>
   )
 }
 function Khac() {
   return(
-    <View style={styles.container}>
-      <Text style={styles.textTab}>khac</Text>
-    </View>
+    <SafeAreaView style={{marginBottom: 70}}>
+    <ScrollView>
+      <View style={styles.khac}>
+        <Image style={styles.logo} source={require("../assets/unnamed.png")} />
+        <Text style={styles.textcoupon1}>VISA50K - Giảm 50K cho đơn từ 199K khi sử dụng các dịch</Text>
+        <Text style={styles.textcoupon2}>HSD: 06/12/2022</Text>
+        <Text style={styles.textcoupon3}>SỬ DỤNG</Text>
+        <View style={styles.line}/>
+      </View>
+    </ScrollView>
+  </SafeAreaView>
   )
 }
 
@@ -104,10 +119,33 @@ function MyTab(){
     container:{
       flex: 1,
       justifyContent: "center",
-      alignContent: "center"
+      alignContent: "center",
+      marginTop: -90
     },
     textTab: {
-      fontSize: 20,
-      color: "black"
+      fontSize: 16,
+      color: "gray",
+      fontWeight: Platform.OS === "android" ? "normal" : "600",
+      marginLeft: 80
+    },
+    icons: {
+      width: 50,
+      height: 50,
+      marginLeft: 175,
+      marginBottom: 20,
+    },
+    logo: {
+      height: 40,
+      width: 40,
+    },
+    khac:{
+      flexDirection: "row",
+      backgroundColor: "white",
+      borderRadius: 20,
+      marginTop: 20,
+      height: 120,
+      width: 370,
+      marginLeft: 20,
+      
     }
   })
