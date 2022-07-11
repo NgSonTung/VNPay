@@ -1,5 +1,7 @@
 import "react-native-gesture-handler";
 import React, { Component } from "react";
+import { useNavigation } from "@react-navigation/native";
+
 import {
   Platform,
   SafeAreaView,
@@ -16,26 +18,24 @@ import HomeHeader from "../components/HomeHeader.jsx";
 import HomeFooter from "../components/HomeFooter.jsx";
 
 class HomeScreen extends Component {
-  state = {
-    balance: 120034,
-    eyeOn: false,
-    loggedIn: false,
-    smallMenu: {},
-    name: "NGUYỄN VĂN A",
-  };
   constructor() {
     super();
   }
   scrollY = new Animated.Value(0);
-  balanceHide = () => {
-    this.state.eyeOn
-      ? this.setState({ eyeOn: false })
-      : this.setState({ eyeOn: true });
-  };
   logIn = () => {
-    if (!this.state.loggedIn) {
-      Alert.alert("cc");
+    if (this.props.loggedIn == false) {
+      this.props.navigation.navigate("login");
     }
+  };
+  napTien = () => {
+    this.props.loggedIn == true
+      ? this.props.navigation.navigate("naptien")
+      : this.props.navigation.navigate("login");
+  };
+  notification = () => {
+    this.props.loggedIn == true
+      ? this.props.navigation.navigate("thongbao")
+      : this.props.navigation.navigate("login");
   };
 
   render() {
@@ -62,37 +62,33 @@ class HomeScreen extends Component {
         >
           <BannerSlider />
           <SmallMenu
+            napTien={this.napTien}
             reference={(ref) => (this.view = ref)}
             scrollY={this.scrollY}
           />
           <BigMenu scrollY={this.scrollY} />
-          <BannerSliderMini
-            onLayout={({ nativeEvent }) => {
-              this.setState({ smallMenu: nativeEvent.layout });
-            }}
-            menuHeight={this.state.smallMenu.height}
-            menuY={this.state.smallMenu.y}
-          />
+          <BannerSliderMini />
         </Animated.ScrollView>
 
         {/* HEADER */}
 
         <HomeHeader
+          screen={this.props.name}
           y={this.scrollY.interpolate({
             inputRange: [0, 76.2],
             outputRange: [0, -76.2],
           })}
           scrollY={this.scrollY}
-          balance={this.state.balance}
-          eyeOn={this.state.eyeOn}
-          handlePress={this.balanceHide}
-          loggedIn={this.state.loggedIn}
+          balance={this.props.balance}
+          eyeOn={this.props.eyeOn}
+          handlePress={this.props.balanceHide}
+          loggedIn={this.props.loggedIn}
           logIn={this.logIn}
-          name={this.state.name}
+          name={this.props.name}
         />
 
         {/* FOOTER */}
-        <HomeFooter scrollY={this.scrollY} />
+        <HomeFooter notification={this.notification} scrollY={this.scrollY} />
 
         <StatusBar hidden style={"auto"} />
       </SafeAreaView>

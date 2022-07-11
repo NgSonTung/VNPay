@@ -1,32 +1,28 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Platform,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   Image,
   TextInput,
+  Dimensions,
+  KeyboardAvoidingView,
 } from "react-native";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
-const LoginScreen = () => {
-  const [step, setStep] = useState(1);
-  const [number, setNumber] = useState("");
-  const [isRight, checkNumber] = useState("");
-
-  function handleSubmit() {
-    if (number.length == 0) return "thieu";
-    else if (!number.startsWith("09", 0)) return "sai";
-    else if (isNaN(number)) return "sai";
-    else if (number.length == 10) return "dung";
-    else return "sai";
-  }
-
+const LoginScreen = (props) => {
+  const login = () => {
+    props.handleLogin();
+    props.number == props.password ? props.navigation.goBack() : null;
+  };
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       {/* HEADER */}
       <View style={styles.header}>
         <MaterialIcons
@@ -34,6 +30,7 @@ const LoginScreen = () => {
           name="arrow-back-ios"
           size={19}
           color="black"
+          onPress={props.navigation.goBack}
         />
         <Image
           style={styles.logo}
@@ -41,13 +38,14 @@ const LoginScreen = () => {
           source={require("../assets/logo3.png")}
         />
       </View>
-
       {/* MAIN */}
       <View style={styles.main}>
         <View style={styles.greetingsCont}>
-          {step == 2 ? <Text style={styles.greetings1}>Xin chào</Text> : null}
+          {props.step == 2 ? (
+            <Text style={styles.greetings1}>Xin chào</Text>
+          ) : null}
           <Text style={styles.greetings2}>
-            {step == 1 ? "Xin chào!" : "Quý khách"}
+            {props.step == 1 ? "Xin chào!" : "Quý khách"}
           </Text>
         </View>
         <Image
@@ -55,7 +53,7 @@ const LoginScreen = () => {
           resizeMode={"contain"}
           source={require("../assets/avatarBig.png")}
         />
-        {step == 1 ? (
+        {props.step == 1 ? (
           <Text style={styles.desc}>
             Quý khách vui lòng nhập SĐT để đăng nhập/đăng ký
           </Text>
@@ -63,38 +61,50 @@ const LoginScreen = () => {
         <View style={styles.eye}>
           <TextInput
             style={styles.input}
-            placeholder={step == 1 ? "Số điện thoại" : "Nhập mật khẩu"}
-            keyboardType="phone-pad"
+            placeholder={props.step == 1 ? "Số điện thoại" : "Nhập mật khẩu"}
+            keyboardType={props.step == 1 ? "phone-pad" : "default"}
             maxLength={10}
-            onChangeText={(value) => setNumber((number) => value)}
+            secureTextEntry={
+              props.step == 2 && props.hidePassword ? true : false
+            }
+            onChangeText={(value) => props.setNumber(() => value)}
           />
-          {step == 2 ? (
-            <Ionicons
-              style={[styles.eyeOn]}
-              name="eye"
-              size={17}
-              color="#FFAA4F"
-            />
-          ) : null}
-          {step == 2 ? (
-            <Ionicons
-              style={[styles.eyeOff]}
-              name="eye-off-sharp"
-              size={17}
-              color="#FFAA4F"
-            />
+          {props.step == 2 ? (
+            <View
+              onStartShouldSetResponder={() =>
+                props.setHide(() => (props.hidePassword ? false : true))
+              }
+            >
+              <Ionicons
+                style={[
+                  styles.hide,
+                  { display: props.hidePassword ? "none" : "flex" },
+                ]}
+                name="eye"
+                size={17}
+                color="#FFAA4F"
+              />
+              <Ionicons
+                style={[
+                  styles.hide,
+                  { display: props.hidePassword ? "flex" : "none" },
+                ]}
+                name="eye-off-sharp"
+                size={17}
+                color="#FFAA4F"
+              />
+            </View>
           ) : null}
         </View>
-        {isRight == "thieu" ? (
+        {props.isRight == "thieu" ? (
           <View style={styles.errCont}>
             <Ionicons name="ios-warning" size={15} color="#ED1C24" />
-
             <Text style={styles.errText}>
               Số điện thoại không được bỏ trống. Vui lòng kiểm tra lại.
             </Text>
           </View>
         ) : null}
-        {isRight == "sai" ? (
+        {props.isRight == "sai" ? (
           <View style={styles.errCont}>
             <Ionicons name="ios-warning" size={15} color="#ED1C24" />
             <Text style={styles.errText}>
@@ -102,26 +112,41 @@ const LoginScreen = () => {
             </Text>
           </View>
         ) : null}
-        <Text style={styles.forgot}>Quên mật khẩu?</Text>
+        <Text
+          style={[
+            styles.forgot,
+            { display: props.step == 2 ? "flex" : "none" },
+          ]}
+        >
+          Quên mật khẩu?
+        </Text>
         <View
-          onStartShouldSetResponder={() => checkNumber(() => handleSubmit())}
+          onStartShouldSetResponder={
+            props.step == 1
+              ? () => props.checkNumber(() => props.handleSubmit())
+              : () => login()
+          }
           style={styles.submitBtn}
         >
-          <Text style={styles.submitText}>Tiếp tục</Text>
+          <Text style={styles.submitText}>
+            {props.step == 1 ? "Tiếp tục" : "Đăng nhập"}
+          </Text>
         </View>
       </View>
-
       {/* FOOTER */}
-      <View>
-        <View>
-          <Text>Điều khoản và điều kiện</Text>
-          <Text>|</Text>
-          <Text>Hướng dẫn sử dụng</Text>
+      <View style={styles.footer}>
+        <View style={styles.termsCont}>
+          <Text style={[styles.terms]}>Điều khoản và điều kiện</Text>
+          <Text style={{ paddingHorizontal: 12 }}>|</Text>
+          <Text style={[styles.terms]}>Hướng dẫn sử dụng</Text>
         </View>
-        <Image source={require("../assets/bottomBar.png")} />
+        <Image
+          style={{ alignSelf: "center", marginTop: 15 }}
+          source={require("../assets/bottomBar.png")}
+        />
       </View>
       <StatusBar style={"auto"} />
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 export default LoginScreen;
@@ -131,6 +156,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFF",
     overflow: "hidden",
+    height: Dimensions.get("window").height,
+    width: "100%",
+    zIndex: 10,
   },
   header: {
     width: "100%",
@@ -161,7 +189,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   avatar: {
-    height: 220,
+    height: "40%",
+    aspectRatio: 1,
   },
   desc: {
     color: "#9B9D9F",
@@ -178,6 +207,7 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: "center",
     marginTop: 15,
+    zIndex: 0,
   },
   submitBtn: {
     backgroundColor: "#005BAA",
@@ -207,18 +237,32 @@ const styles = StyleSheet.create({
   eye: {
     flexDirection: "row",
   },
-  eyeOn: {
+  hide: {
     right: 15,
+    bottom: 23,
     alignSelf: "center",
     position: "absolute",
-  },
-  eyeOff: {
-    right: 15,
-    alignSelf: "center",
-    position: "absolute",
+    zIndex: 5,
   },
   forgot: {
     fontSize: 12.5,
     marginVertical: 15,
+  },
+  footer: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    justifyContent: "center",
+  },
+  termsCont: {
+    alignSelf: "center",
+    flexDirection: "row",
+  },
+  terms: {
+    fontSize: 13,
+    color: "gray",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    height: 16,
   },
 });

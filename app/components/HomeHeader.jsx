@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 const HomeHeader = (props) => {
-  const loggedIn = () => {
+  const loggedIn = (props) => {
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
         <Text style={styles.greet}>{props.name}</Text>
@@ -47,7 +47,7 @@ const HomeHeader = (props) => {
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
         <Text style={styles.greet}>Xin chào!</Text>
-        <Text onPress={() => props.logIn} style={styles.loggedOut}>
+        <Text onPress={props.logIn} style={styles.loggedOut}>
           Đăng nhập/Đăng kí
         </Text>
       </View>
@@ -88,7 +88,7 @@ const HomeHeader = (props) => {
           />
         </View>
         <View style={styles.loginBar}>
-          {props.loggedIn ? loggedIn() : loggedOut()}
+          {props.loggedIn ? loggedIn(props) : loggedOut(props)}
         </View>
         <Image style={styles.logo} source={require("../assets/logo2.png")} />
       </Animated.View>
