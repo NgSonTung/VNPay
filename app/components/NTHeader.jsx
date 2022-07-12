@@ -60,7 +60,7 @@ export default function NTHeader(props) {
 
 const styles = StyleSheet.create({
   headerSafeArea: {
-    paddingTop: StatusBar.currentHeight,
+    //paddingTop: StatusBar.currentHeight,
     backgroundColor: "#469cd8",
   },
 
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderBottomWidth: 10,
     borderBottomColor: "#f7f6f6",
+    backgroundColor: 'white',
   },
 
   VNP: {

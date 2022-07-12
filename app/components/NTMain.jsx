@@ -134,6 +134,7 @@ export default function NTMain(){
 const styles = StyleSheet.create({
     mainNT:{
         height: 600,
+        backgroundColor: 'white',
     },
     mainNT_Text:{
         fontSize: 15,
@@ -215,6 +216,7 @@ const styles = StyleSheet.create({
     LinkText:{
         fontSize: 15,
         padding: 20,
+        paddingTop: 5,
     },
     barRows: {
         flexDirection: "row",
@@ -257,6 +259,5 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         marginTop: 10,
         marginLeft: "13.5%",
-    },
-    
+    },    
 })
