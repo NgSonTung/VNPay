@@ -8,7 +8,6 @@ import {
   StatusBar,
   Animated,
   StyleSheet,
-  Alert,
 } from "react-native";
 import BannerSlider from "../components/BannerSlider.jsx";
 import BannerSliderMini from "../components/BannerSliderMini.jsx";
@@ -28,19 +27,32 @@ class HomeScreen extends Component {
     }
   };
   napTien = () => {
-    this.props.loggedIn == true
-      ? this.props.navigation.navigate("naptien")
-      : this.props.navigation.navigate("login");
+    if (this.props.loggedIn) this.props.navigation.navigate("naptien");
+    else {
+      this.props.navigation.navigate("naptien");
+      this.props.navigation.navigate("login");
+    }
   };
   myQR = () => {
-    this.props.loggedIn == true
-      ? this.props.navigation.navigate("myQR")
-      : this.props.navigation.navigate("login");
+    if (this.props.loggedIn) this.props.navigation.navigate("myQR");
+    else {
+      this.props.navigation.navigate("myQR");
+      this.props.navigation.navigate("login");
+    }
+  };
+  viGD = () => {
+    if (this.props.loggedIn) this.props.navigation.navigate("viGD");
+    else {
+      this.props.navigation.navigate("viGD");
+      this.props.navigation.navigate("login");
+    }
   };
   notification = () => {
-    this.props.loggedIn == true
-      ? this.props.navigation.navigate("thongbao")
-      : this.props.navigation.navigate("login");
+    if (this.props.loggedIn) this.props.navigation.navigate("thongbao");
+    else {
+      this.props.navigation.navigate("thongbao");
+      this.props.navigation.navigate("login");
+    }
   };
 
   render() {
@@ -64,11 +76,13 @@ class HomeScreen extends Component {
           scrollEventThrottle={20}
           snapToInterval={Platform.OS === "android" ? 270 : 288}
           snapToAlignment={"start"}
+          pagingEnabled
         >
           <BannerSlider />
           <SmallMenu
             napTien={this.napTien}
             myQR={this.myQR}
+            viGD={this.viGD}
             reference={(ref) => (this.view = ref)}
             scrollY={this.scrollY}
           />
