@@ -131,6 +131,7 @@ const SmallMenu = (props) => {
           </Animated.Text>
         </Animated.View>
         <Animated.View
+          onStartShouldSetResponder={props.myQR}
           style={[styles.navCont, styles.myQR, animations.container]}
         >
           <Animated.Image

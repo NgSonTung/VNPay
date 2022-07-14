@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Platform,
@@ -10,13 +10,44 @@ import {
   TextInput,
   Dimensions,
   KeyboardAvoidingView,
+  Keyboard,
+  Alert,
 } from "react-native";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 const LoginScreen = (props) => {
+  const [tempNo, setTempNo] = useState("");
+  const [tempPassword, setTempPassword] = useState("");
+
+  useEffect(() => {
+    props.setPassword(tempPassword);
+    props.setNumber(tempNo);
+  }, []);
+
   const login = () => {
-    props.handleLogin();
-    props.number == props.password ? props.navigation.goBack() : null;
+    Keyboard.dismiss();
+    if (tempPassword == 123) {
+      props.setLogin(true);
+      props.navigation.goBack();
+    } else {
+      Alert.alert(
+        "Thông báo",
+        "Thông tin đăng nhập không chính xác. Lưu ý: Tài khoản của Quý khách sẽ bị tạm khóa nếu nhập sai quá 5 lần.",
+        [{ text: "Đóng" }]
+      );
+      return false;
+    }
+  };
+
+  const handleSubmit = () => {
+    Keyboard.dismiss();
+    if (tempNo.length == 0) return "thieu";
+    else if (!tempNo.startsWith("09", 0) | isNaN(tempNo)) return "sai";
+    else if (tempNo.length == 10) {
+      props.setNumber(tempNo);
+      props.setLoginStep(2);
+      return "dung";
+    } else return "sai";
   };
   return (
     <KeyboardAvoidingView
@@ -59,16 +90,23 @@ const LoginScreen = (props) => {
           </Text>
         ) : null}
         <View style={styles.eye}>
-          <TextInput
-            style={styles.input}
-            placeholder={props.step == 1 ? "Số điện thoại" : "Nhập mật khẩu"}
-            keyboardType={props.step == 1 ? "phone-pad" : "default"}
-            maxLength={10}
-            secureTextEntry={
-              props.step == 2 && props.hidePassword ? true : false
-            }
-            onChangeText={(value) => props.setNumber(() => value)}
-          />
+          {props.step == 1 ? (
+            <TextInput
+              style={styles.input}
+              placeholder={"Số điện thoại"}
+              keyboardType={"phone-pad"}
+              maxLength={10}
+              onChangeText={(value) => setTempNo(() => value)}
+            />
+          ) : (
+            <TextInput
+              style={styles.input}
+              placeholder={"Nhập mật khẩu"}
+              keyboardType={"default"}
+              secureTextEntry={props.hidePassword ? true : false}
+              onChangeText={(value) => setTempPassword(() => value)}
+            />
+          )}
           {props.step == 2 ? (
             <View
               onStartShouldSetResponder={() =>
@@ -123,7 +161,7 @@ const LoginScreen = (props) => {
         <View
           onStartShouldSetResponder={
             props.step == 1
-              ? () => props.checkNumber(() => props.handleSubmit())
+              ? () => props.checkNumber(handleSubmit)
               : () => login()
           }
           style={styles.submitBtn}

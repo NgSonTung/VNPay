@@ -7,8 +7,9 @@ import Notification from "./app/components/Notification";
 import Gift from "./app/components/Gift";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { Alert, Keyboard } from "react-native";
+import MyQrScreen from "./app/screens/MyQrScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,41 +21,19 @@ const [balance, setBalance] = useState(123456); //SO TIEN
 const [eyeOn, setEyeOn] = useState(false);
 const [loggedIn, setLogin] = useState(false); //TRANG THAI DANG NHAP
 
-const [password, setPassword] = useState(123); //MAT KHAU
-const [phoneNumber, setPhoneNumber] = useState("");
+const [password, setPassword] = useState(123);
+const [phoneNumber, setPhoneNumber] = useState();
 const [loginStep, setLoginStep] = useState(1);
 const [inputIsRight, checkInput] = useState("");
 const [hidePassword, setHidePassword] = useState("true");
 
+
+  
 // FUNCTIONS
 const balanceHide = () => {
   eyeOn ? setEyeOn(false) : setEyeOn(true);
 };
 
-const handleSubmit = () => {
-  Keyboard.dismiss();
-  if (phoneNumber.length == 0) return "thieu";
-  else if (!phoneNumber.startsWith("09", 0) | isNaN(phoneNumber))
-    return "sai";
-  else if (phoneNumber.length == 10) {
-    setLoginStep(2);
-    return "dung";
-  } else return "sai";
-};
-
-const handleLogin = () => {
-  Keyboard.dismiss();
-  if (phoneNumber == password) {
-    setLogin(true);
-  } else {
-    Alert.alert(
-      "Thông báo",
-      "Thông tin đăng nhập không chính xác. Lưu ý: Tài khoản của Quý khách sẽ bị tạm khóa nếu nhập sai quá 5 lần.",
-      [{ text: "Đóng" }]
-    );
-    return false;
-  }
-};
 
    return (
    <NavigationContainer>
@@ -68,6 +47,7 @@ const handleLogin = () => {
              balance={balance}
              loggedIn={loggedIn}
              name={name}
+             
            />
          )}
        </Stack.Screen>
@@ -79,17 +59,31 @@ const handleLogin = () => {
              number={phoneNumber}
              isRight={inputIsRight}
              hidePassword={hidePassword}
-             password ={password}
+               password={password}
+               setPassword = {setPassword}
              setNumber={setPhoneNumber}
              checkNumber={checkInput}
              setHide={setHidePassword}
-             handleSubmit={handleSubmit}
-             handleLogin={handleLogin}
+               setLoginStep={setLoginStep}
+               setLogin = {setLogin}
            />
          )}
        </Stack.Screen>
        <Stack.Screen  options={{ headerShown: false }} name="naptien">
          {(props) => <NTHead navigation={props.navigation}/>}
+         </Stack.Screen>
+         <Stack.Screen options={{ headerShown: false }} name="myQR">
+         {(props) => (
+           <MyQrScreen
+             navigation={props.navigation}
+             balanceHide={balanceHide}
+             balance={balance}
+             name={name}
+               password={password}
+               loggedIn = {loggedIn}
+               number = {phoneNumber}
+               />
+         )}
        </Stack.Screen>
        <Stack.Screen  options={{ headerShown: false }} name="thongbao">
          {(props) => <Notification navigation={props.navigation}/>}

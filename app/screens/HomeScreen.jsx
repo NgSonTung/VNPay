@@ -32,6 +32,11 @@ class HomeScreen extends Component {
       ? this.props.navigation.navigate("naptien")
       : this.props.navigation.navigate("login");
   };
+  myQR = () => {
+    this.props.loggedIn == true
+      ? this.props.navigation.navigate("myQR")
+      : this.props.navigation.navigate("login");
+  };
   notification = () => {
     this.props.loggedIn == true
       ? this.props.navigation.navigate("thongbao")
@@ -63,6 +68,7 @@ class HomeScreen extends Component {
           <BannerSlider />
           <SmallMenu
             napTien={this.napTien}
+            myQR={this.myQR}
             reference={(ref) => (this.view = ref)}
             scrollY={this.scrollY}
           />
