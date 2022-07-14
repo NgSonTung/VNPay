@@ -3,6 +3,7 @@ import LoginScreen from "./app/screens/LoginScreen";
 import NTHeader from "./app/components/NTHeader";
 import NTHead from "./app/screens/NapTien";
 import XNPage from "./app/screens/XacNhanGiaoDich"
+import CTPage from "./app/screens/ChuyenTien"
 import Notification from "./app/components/Notification";
 import Gift from "./app/components/Gift";
 import { NavigationContainer } from "@react-navigation/native";
@@ -90,5 +91,7 @@ const balanceHide = () => {
        </Stack.Screen>
      </Stack.Navigator>
      </NavigationContainer>
-  );
+// return(
+// <CTPage />
+   );
 }
