@@ -1,56 +1,58 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
-import {
-  View,
-  Platform,
-  StatusBar,
-  StyleSheet,
-  Text,
-  Image,
-  TextInput,
-  Dimensions,
-  KeyboardAvoidingView,
-  Keyboard,
-} from "react-native";
+import React from "react";
+import { View, StatusBar, StyleSheet, Dimensions } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import MyQRThanhToan from "../components/MyQRThanhToan";
 import MyQRNhanTien from "../components/MyQRNhanTien";
+import { Entypo } from "@expo/vector-icons";
+const windowWidth = Dimensions.get("window").width;
 
 export default function MyQrScreen(props) {
   const Tab = createMaterialTopTabNavigator();
-
+  const exit = () => {
+    props.navigation.goBack;
+  };
   return (
-    <View style={styles.container}>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarStyle: { height: 58 },
-        }}
-      >
-        <Tab.Screen
-          options={{
-            tabBarLabel: "QR thanh toán",
+    <>
+      <Entypo
+        onPress={props.navigation.goBack}
+        style={styles.backBtn}
+        name="cross"
+        size={24}
+        color="black"
+      />
+      <View style={styles.container}>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarStyle: { height: 58, width: "90%" },
           }}
-          name="thanhtoan"
         >
-          {() => (
-            <MyQRThanhToan
-              balanceHide={props.balanceHide}
-              balance={props.balance}
-              name={props.name}
-            />
-          )}
-        </Tab.Screen>
-        <Tab.Screen
-          options={{
-            tabBarLabel: "QR nhận tiền",
-          }}
-          name="nhantien"
-        >
-          {() => <MyQRNhanTien name={props.name} />}
-        </Tab.Screen>
-      </Tab.Navigator>
-      <StatusBar style={"auto"} />
-    </View>
+          <Tab.Screen
+            options={{
+              tabBarLabel: "QR thanh toán",
+            }}
+            name="thanhtoan"
+          >
+            {() => (
+              <MyQRThanhToan
+                balanceHide={props.balanceHide}
+                balance={props.balance}
+                name={props.name}
+              />
+            )}
+          </Tab.Screen>
+          <Tab.Screen
+            options={{
+              tabBarLabel: "QR nhận tiền",
+            }}
+            name="nhantien"
+          >
+            {() => <MyQRNhanTien name={props.name} />}
+          </Tab.Screen>
+        </Tab.Navigator>
+        <StatusBar style={"auto"} />
+      </View>
+    </>
   );
 }
 const styles = StyleSheet.create({
@@ -59,5 +61,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     overflow: "hidden",
     width: "100%",
+    zIndex: 1,
+  },
+  backBtn: {
+    position: "absolute",
+    right: 0,
+    padding: 17,
+    backgroundColor: "white",
+    zIndex: 10,
   },
 });

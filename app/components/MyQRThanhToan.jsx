@@ -7,8 +7,10 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Keyboard,
+  Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+const windowWidth = Dimensions.get("window").width;
 
 export default function MyQRThanhToan(props) {
   const currencyFormat = (num) => {
@@ -104,7 +106,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    overflow: "hidden",
     width: "100%",
   },
   header: {

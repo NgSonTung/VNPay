@@ -102,6 +102,7 @@ const SmallMenu = (props) => {
         </Animated.View>
         <Animated.View
           style={[styles.navCont, styles.viGD, animations.container]}
+          onStartShouldSetResponder={props.viGD}
         >
           <Animated.Image
             source={require("../assets/viGD.png")}

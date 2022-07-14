@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState , useEffect } from "react";
 import { Alert, Keyboard } from "react-native";
 import MyQrScreen from "./app/screens/MyQrScreen";
+import ViGD from "./app/screens/ViGDScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -85,6 +86,10 @@ const balanceHide = () => {
                number = {phoneNumber}
                />
          )}
+         </Stack.Screen>
+         <Stack.Screen  options={{ headerShown: false }} name="viGD">
+         {(props) => <ViGD              name={name}
+ navigation={props.navigation}/>}
        </Stack.Screen>
        <Stack.Screen  options={{ headerShown: false }} name="thongbao">
          {(props) => <Notification navigation={props.navigation}/>}
