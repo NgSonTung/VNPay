@@ -4,8 +4,8 @@ import NTHeader from "./app/components/NTHeader";
 import NTHead from "./app/screens/NapTien";
 import XNPage from "./app/screens/XacNhanGiaoDich"
 import CTPage from "./app/screens/ChuyenTien"
-import Notification from "./app/components/Notification";
-import Gift from "./app/components/Gift";
+import Notification from "./app/screens/Notification";
+import Gift from "./app/screens/Gift";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState , useEffect } from "react";
