@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import React, {useState}from "react";
 import {
   StyleSheet,
   Text,
@@ -13,14 +13,15 @@ import {
 import Searchbar from "./Searchbar";
 import { MaterialIcons } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import Animated from "react-native-reanimated";
+import Swipenotion from "./Swipenotion";
+
 
 const Tab = createMaterialTopTabNavigator();
 
 function Khuyenmai() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.textTab}></Text>
-    </View>
+      <Swipenotion/>
   );
 }
 function Giaodich() {
@@ -41,14 +42,17 @@ function Biendong() {
 }
 function Khac() {
   return (
-      <><Text style={styles.text1}>HÔM NAY, 11/07/2022</Text><View style={styles.khac}>
-      <Image style={styles.logo} source={require("../assets/unnamed.png")} />
-      <Text style={styles.text2}>Ví điện tử VNPAY</Text>
-      <Image style={styles.logo2} source={require("../assets/read.png")} />
-      <Text style={styles.text3}>11/07/2022 13:52</Text>
-      <View style={styles.line1} />
-      <Text style={styles.text4}>Chào mừng bạn đến với hệ thống ví điện tử VNPAY {"\n"}Wallet</Text>
-    </View></>
+    <>
+    <Text style={styles.text1}>HÔM NAY, 13/07/2022</Text>
+      <View style={styles.khac}>
+        <Image style={styles.logo} source={require("../assets/unnamed.png")} />
+        <Text style={styles.text2}>Ví điện tử VNPAY</Text>
+        <Image style={styles.logo2} source={require("../assets/read.png")} />
+        <Text style={styles.text3}>11/07/2022 13:52</Text>
+        <View style={styles.line1} />
+        <Text style={styles.text4}>Chào mừng bạn đến với hệ thống ví điện tử VNPAY {"\n"}Wallet</Text>
+      </View>
+  </>
   );
 }
 
@@ -78,6 +82,7 @@ function MyTab() {
     </Tab.Navigator>
   );
 }
+
 
 const Notification = (props) => {
   return (
