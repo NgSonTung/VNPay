@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import React, {useState}from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,18 +16,15 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Animated from "react-native-reanimated";
 import Swipenotion from "./Swipenotion";
 
-
 const Tab = createMaterialTopTabNavigator();
 
 function Khuyenmai() {
-  return (
-      <Swipenotion/>
-  );
+  return <Swipenotion />;
 }
 function Giaodich() {
   return (
     <View style={styles.container}>
-      <Image style={styles.icons } source={require("../assets/Untitled.png")} />
+      <Image style={styles.icons} source={require("../assets/Untitled.png")} />
       <Text style={styles.textTab}> Quý khách chưa có thông báo nào </Text>
     </View>
   );
@@ -35,7 +32,7 @@ function Giaodich() {
 function Biendong() {
   return (
     <View style={styles.container}>
-      <Image style={styles.icons } source={require("../assets/Untitled.png")} />
+      <Image style={styles.icons} source={require("../assets/Untitled.png")} />
       <Text style={styles.textTab}> Quý khách chưa có thông báo nào </Text>
     </View>
   );
@@ -43,16 +40,18 @@ function Biendong() {
 function Khac() {
   return (
     <>
-    <Text style={styles.text1}>HÔM NAY, 13/07/2022</Text>
+      <Text style={styles.text1}>HÔM NAY, 13/07/2022</Text>
       <View style={styles.khac}>
         <Image style={styles.logo} source={require("../assets/unnamed.png")} />
         <Text style={styles.text2}>Ví điện tử VNPAY</Text>
         <Image style={styles.logo2} source={require("../assets/read.png")} />
         <Text style={styles.text3}>11/07/2022 13:52</Text>
         <View style={styles.line1} />
-        <Text style={styles.text4}>Chào mừng bạn đến với hệ thống ví điện tử VNPAY {"\n"}Wallet</Text>
+        <Text style={styles.text4}>
+          Chào mừng bạn đến với hệ thống ví điện tử VNPAY {"\n"}Wallet
+        </Text>
       </View>
-  </>
+    </>
   );
 }
 
@@ -83,11 +82,10 @@ function MyTab() {
   );
 }
 
-
 const Notification = (props) => {
   return (
     <>
-      <SafeAreaView style={{backgroundColor: "white"}}>
+      <SafeAreaView style={{ backgroundColor: "white" }}>
         <MaterialIcons
           style={styles.returnBtn}
           name="arrow-back-ios"
@@ -138,16 +136,15 @@ const styles = StyleSheet.create({
     color: "gray",
     fontSize: 17,
     marginLeft: 60,
-
   },
-  icons:{
+  icons: {
     height: 150,
     width: 150,
     borderRadius: 50,
     marginLeft: 120,
-    marginTop: -100
+    marginTop: -100,
   },
-  khac:{
+  khac: {
     flexDirection: "row",
     backgroundColor: "white",
     borderRadius: 20,
@@ -155,49 +152,49 @@ const styles = StyleSheet.create({
     height: 130,
     width: 390,
     marginLeft: 10,
-    elevation: 9
+    elevation: 9,
   },
   text1: {
     color: "gray",
     marginTop: 20,
     marginLeft: 20,
-    fontSize: 16
+    fontSize: 16,
   },
   text2: {
     color: "black",
     fontSize: 18,
     fontWeight: Platform.OS === "android" ? "bold" : "600",
     marginTop: 15,
-     marginLeft: 20
+    marginLeft: 20,
   },
   text3: {
     color: "gray",
     marginTop: 40,
-    marginLeft: 10
+    marginLeft: 10,
   },
   text4: {
     color: "black",
     marginLeft: -355,
     fontSize: 16,
-    marginTop: 80
+    marginTop: 80,
   },
-  logo:{
-    height: 40, 
+  logo: {
+    height: 40,
     width: 40,
     marginLeft: 15,
-    marginTop: 15
+    marginTop: 15,
   },
-  line1:{
-    borderBottomColor: 'lightgray',
+  line1: {
+    borderBottomColor: "lightgray",
     borderBottomWidth: 1,
     width: 360,
     marginLeft: -205,
-    marginBottom: 57
+    marginBottom: 57,
   },
-  logo2:{
-    height: 15, 
+  logo2: {
+    height: 15,
     width: 15,
     marginTop: 45,
-    marginLeft: -140
-  }
+    marginLeft: -140,
+  },
 });

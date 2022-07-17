@@ -19,12 +19,17 @@ import Tabs from "../components/CTMain";
 
 export default function CTPage(props) {
   return (
-    <View>
-      <CTHeader />
+    <View style={styles.container}>
+      <CTHeader navigation={props.navigation} />
 
-      <NavigationContainer>
-          <Tabs />
-      </NavigationContainer>
+      {/* <NavigationContainer> */}
+      <Tabs />
+      {/* </NavigationContainer> */}
     </View>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

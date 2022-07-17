@@ -118,6 +118,7 @@ const SmallMenu = (props) => {
         </Animated.View>
         <Animated.View
           style={[styles.navCont, styles.chuyenTien, animations.container]}
+          onStartShouldSetResponder={props.chuyenTien}
         >
           <Animated.Image
             style={[

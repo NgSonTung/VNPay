@@ -33,13 +33,7 @@ export default function MyQrScreen(props) {
             }}
             name="thanhtoan"
           >
-            {() => (
-              <MyQRThanhToan
-                balanceHide={props.balanceHide}
-                balance={props.balance}
-                name={props.name}
-              />
-            )}
+            {() => <MyQRThanhToan balance={props.balance} name={props.name} />}
           </Tab.Screen>
           <Tab.Screen
             options={{

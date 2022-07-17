@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Platform,
@@ -18,15 +18,13 @@ import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 const LoginScreen = (props) => {
   const [tempNo, setTempNo] = useState("");
   const [tempPassword, setTempPassword] = useState("");
-
-  useEffect(() => {
-    props.setPassword(tempPassword);
-    props.setNumber(tempNo);
-  }, []);
+  const [inputIsRight, checkInput] = useState("");
+  const [loginStep, setLoginStep] = useState(1);
+  const [hidePassword, setHidePassword] = useState("true");
 
   const login = () => {
     Keyboard.dismiss();
-    if (tempPassword == 123) {
+    if (tempPassword == props.password) {
       props.setLogin(true);
       props.navigation.goBack();
     } else {
@@ -40,14 +38,18 @@ const LoginScreen = (props) => {
   };
 
   const handleSubmit = () => {
+    let rightNumber = false;
     Keyboard.dismiss();
-    if (tempNo.length == 0) return "thieu";
-    else if (!tempNo.startsWith("09", 0) | isNaN(tempNo)) return "sai";
-    else if (tempNo.length == 10) {
-      props.setNumber(tempNo);
-      props.setLoginStep(2);
-      return "dung";
-    } else return "sai";
+    tempNo === props.number ? (rightNumber = true) : null;
+    if (tempNo.length == 0) {
+      checkInput("thieu");
+    } else if (!tempNo.startsWith("09", 0) | isNaN(tempNo)) checkInput("sai");
+    else if (tempNo.length == 10 && rightNumber) {
+      setLoginStep(2);
+      checkInput("dung");
+    } else {
+      checkInput("sai");
+    }
   };
   return (
     <KeyboardAvoidingView
@@ -61,7 +63,7 @@ const LoginScreen = (props) => {
           name="arrow-back-ios"
           size={19}
           color="black"
-          onPress={props.navigation.goBack}
+          onPress={() => props.navigation.navigate("home")}
         />
         <Image
           style={styles.logo}
@@ -72,11 +74,11 @@ const LoginScreen = (props) => {
       {/* MAIN */}
       <View style={styles.main}>
         <View style={styles.greetingsCont}>
-          {props.step == 2 ? (
+          {loginStep == 2 ? (
             <Text style={styles.greetings1}>Xin chào</Text>
           ) : null}
           <Text style={styles.greetings2}>
-            {props.step == 1 ? "Xin chào!" : "Quý khách"}
+            {loginStep == 1 ? "Xin chào!" : "Quý khách"}
           </Text>
         </View>
         <Image
@@ -84,13 +86,13 @@ const LoginScreen = (props) => {
           resizeMode={"contain"}
           source={require("../assets/avatarBig.png")}
         />
-        {props.step == 1 ? (
+        {loginStep == 1 ? (
           <Text style={styles.desc}>
             Quý khách vui lòng nhập SĐT để đăng nhập/đăng ký
           </Text>
         ) : null}
         <View style={styles.eye}>
-          {props.step == 1 ? (
+          {loginStep == 1 ? (
             <TextInput
               style={styles.input}
               placeholder={"Số điện thoại"}
@@ -103,20 +105,20 @@ const LoginScreen = (props) => {
               style={styles.input}
               placeholder={"Nhập mật khẩu"}
               keyboardType={"default"}
-              secureTextEntry={props.hidePassword ? true : false}
+              secureTextEntry={hidePassword ? true : false}
               onChangeText={(value) => setTempPassword(() => value)}
             />
           )}
-          {props.step == 2 ? (
+          {loginStep == 2 ? (
             <View
               onStartShouldSetResponder={() =>
-                props.setHide(() => (props.hidePassword ? false : true))
+                setHidePassword(() => (hidePassword ? false : true))
               }
             >
               <Ionicons
                 style={[
                   styles.hide,
-                  { display: props.hidePassword ? "none" : "flex" },
+                  { display: hidePassword ? "none" : "flex" },
                 ]}
                 name="eye"
                 size={17}
@@ -125,7 +127,7 @@ const LoginScreen = (props) => {
               <Ionicons
                 style={[
                   styles.hide,
-                  { display: props.hidePassword ? "flex" : "none" },
+                  { display: hidePassword ? "flex" : "none" },
                 ]}
                 name="eye-off-sharp"
                 size={17}
@@ -134,7 +136,7 @@ const LoginScreen = (props) => {
             </View>
           ) : null}
         </View>
-        {props.isRight == "thieu" ? (
+        {inputIsRight == "thieu" ? (
           <View style={styles.errCont}>
             <Ionicons name="ios-warning" size={15} color="#ED1C24" />
             <Text style={styles.errText}>
@@ -142,7 +144,7 @@ const LoginScreen = (props) => {
             </Text>
           </View>
         ) : null}
-        {props.isRight == "sai" ? (
+        {inputIsRight == "sai" ? (
           <View style={styles.errCont}>
             <Ionicons name="ios-warning" size={15} color="#ED1C24" />
             <Text style={styles.errText}>
@@ -151,23 +153,18 @@ const LoginScreen = (props) => {
           </View>
         ) : null}
         <Text
-          style={[
-            styles.forgot,
-            { display: props.step == 2 ? "flex" : "none" },
-          ]}
+          style={[styles.forgot, { display: loginStep == 2 ? "flex" : "none" }]}
         >
           Quên mật khẩu?
         </Text>
         <View
           onStartShouldSetResponder={
-            props.step == 1
-              ? () => props.checkNumber(handleSubmit)
-              : () => login()
+            loginStep == 1 ? () => handleSubmit() : () => login()
           }
           style={styles.submitBtn}
         >
           <Text style={styles.submitText}>
-            {props.step == 1 ? "Tiếp tục" : "Đăng nhập"}
+            {loginStep == 1 ? "Tiếp tục" : "Đăng nhập"}
           </Text>
         </View>
       </View>

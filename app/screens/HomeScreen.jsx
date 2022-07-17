@@ -19,8 +19,16 @@ import HomeFooter from "../components/HomeFooter.jsx";
 class HomeScreen extends Component {
   constructor() {
     super();
+    this.state = { eyeOn: false };
   }
   scrollY = new Animated.Value(0);
+
+  balanceHide = () => {
+    this.state.eyeOn
+      ? this.setState({ eyeOn: false })
+      : this.setState({ eyeOn: true });
+  };
+
   logIn = () => {
     if (this.props.loggedIn == false) {
       this.props.navigation.navigate("login");
@@ -54,6 +62,13 @@ class HomeScreen extends Component {
       this.props.navigation.navigate("login");
     }
   };
+  chuyenTien = () => {
+    if (this.props.loggedIn) this.props.navigation.navigate("chuyentien");
+    else {
+      this.props.navigation.navigate("chuyentien");
+      this.props.navigation.navigate("login");
+    }
+  };
 
   render() {
     return (
@@ -83,6 +98,7 @@ class HomeScreen extends Component {
             napTien={this.napTien}
             myQR={this.myQR}
             viGD={this.viGD}
+            chuyenTien={this.chuyenTien}
             reference={(ref) => (this.view = ref)}
             scrollY={this.scrollY}
           />
@@ -100,8 +116,8 @@ class HomeScreen extends Component {
           })}
           scrollY={this.scrollY}
           balance={this.props.balance}
-          eyeOn={this.props.eyeOn}
-          handlePress={this.props.balanceHide}
+          eyeOn={this.state.eyeOn}
+          handlePress={this.balanceHide}
           loggedIn={this.props.loggedIn}
           logIn={this.logIn}
           name={this.props.name}

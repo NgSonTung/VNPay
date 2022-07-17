@@ -2,101 +2,104 @@ import HomeScreen from "./app/screens/HomeScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import NTHeader from "./app/components/NTHeader";
 import NTHead from "./app/screens/NapTien";
-import XNPage from "./app/screens/XacNhanGiaoDich"
-import CTPage from "./app/screens/ChuyenTien"
+import XNPage from "./app/screens/XacNhanGiaoDich";
+import CTPage from "./app/screens/ChuyenTien";
 import Notification from "./app/components/Notification";
 import Gift from "./app/components/Gift";
+import { Text, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState , useEffect } from "react";
-import { Alert, Keyboard } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
 import MyQrScreen from "./app/screens/MyQrScreen";
 import ViGD from "./app/screens/ViGDScreen";
+import { log } from "react-native-reanimated";
+import { initDB } from "./firebase";
+import { getData } from "./firebase";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  initDB(); //init database
 
-// STATE
-const [name, setName] = useState("NGUYỄN VĂN A"); //TEN NGUOI DUNG
-const [balance, setBalance] = useState(123456); //SO TIEN
-const [eyeOn, setEyeOn] = useState(false);
-const [loggedIn, setLogin] = useState(false); //TRANG THAI DANG NHAP
+  // STATE
+  const [accountInfo, setAccountInfo] = useState();
+  const [loggedIn, setLogin] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
-const [password, setPassword] = useState(123);
-const [phoneNumber, setPhoneNumber] = useState();
-const [loginStep, setLoginStep] = useState(1);
-const [inputIsRight, checkInput] = useState("");
-const [hidePassword, setHidePassword] = useState("true");
+  //FUNCTIONS
+  useEffect(() => {
+    getAccountInfo();
+  }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      typeof accountInfo !== "undefined" ? setLoading(false) : null;
+    }, 1000);
+  }, [accountInfo]);
 
-  
-// FUNCTIONS
-const balanceHide = () => {
-  eyeOn ? setEyeOn(false) : setEyeOn(true);
-};
+  const getAccountInfo = async () => {
+    const array = await getData();
+    setAccountInfo(array[0]);
+  };
 
-
-   return (
-   <NavigationContainer>
-     <Stack.Navigator initialRouteName="home">
-       <Stack.Screen options={{ headerShown: false }} name="home">
-         {(props) => (
-           <HomeScreen
-             navigation={props.navigation}
-             balanceHide={balanceHide}
-             eyeOn={eyeOn}
-             balance={balance}
-             loggedIn={loggedIn}
-             name={name}
-             
-           />
-         )}
-       </Stack.Screen>
-       <Stack.Screen options={{ headerShown: false }} name="login">
-         {(props) => (
-           <LoginScreen
-             navigation={props.navigation}
-             step={loginStep}
-             number={phoneNumber}
-             isRight={inputIsRight}
-             hidePassword={hidePassword}
-               password={password}
-               setPassword = {setPassword}
-             setNumber={setPhoneNumber}
-             checkNumber={checkInput}
-             setHide={setHidePassword}
-               setLoginStep={setLoginStep}
-               setLogin = {setLogin}
-           />
-         )}
-       </Stack.Screen>
-       <Stack.Screen  options={{ headerShown: false }} name="naptien">
-         {(props) => <NTHead navigation={props.navigation}/>}
-         </Stack.Screen>
-         <Stack.Screen options={{ headerShown: false }} name="myQR">
-         {(props) => (
-           <MyQrScreen
-             navigation={props.navigation}
-             balanceHide={balanceHide}
-             balance={balance}
-             name={name}
-               password={password}
-               loggedIn = {loggedIn}
-               number = {phoneNumber}
-               />
-         )}
-         </Stack.Screen>
-         <Stack.Screen  options={{ headerShown: false }} name="viGD">
-         {(props) => <ViGD              name={name}
- navigation={props.navigation}/>}
-       </Stack.Screen>
-       <Stack.Screen  options={{ headerShown: false }} name="thongbao">
-         {(props) => <Notification navigation={props.navigation}/>}
-       </Stack.Screen>
-     </Stack.Navigator>
-     </NavigationContainer>
-// return(
-// <CTPage />
-   );
+  if (isLoading) return <Text style={styles.loading}>LOADING</Text>;
+  else
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="home">
+          <Stack.Screen options={{ headerShown: false }} name="home">
+            {(props) => (
+              <HomeScreen
+                navigation={props.navigation}
+                balance={accountInfo.balance}
+                loggedIn={loggedIn}
+                name={accountInfo.name}
+              />
+            )}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="login">
+            {(props) => (
+              <LoginScreen
+                navigation={props.navigation}
+                number={accountInfo.number}
+                password={accountInfo.password}
+                setLogin={setLogin}
+              />
+            )}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="naptien">
+            {(props) => <NTHead navigation={props.navigation} />}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="myQR">
+            {(props) => (
+              <MyQrScreen
+                navigation={props.navigation}
+                balance={accountInfo.balance}
+                name={accountInfo.name}
+                loggedIn={loggedIn}
+              />
+            )}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="viGD">
+            {(props) => (
+              <ViGD name={accountInfo.name} navigation={props.navigation} />
+            )}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="thongbao">
+            {(props) => <Notification navigation={props.navigation} />}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="chuyentien">
+            {(props) => <CTPage navigation={props.navigation} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
 }
+const styles = StyleSheet.create({
+  loading: {
+    fontSize: 50,
+    flex: 1,
+    textAlignVertical: "center",
+    alignSelf: "center",
+  },
+});
