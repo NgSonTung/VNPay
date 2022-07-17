@@ -18,7 +18,7 @@ import {
 import SvgComponent from "../assets/bottomBar.jsx";
 import { NavigationContainer } from "@react-navigation/native";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import Searchbar1 from "./Searchbar1.jsx";
+import Searchbar1 from "../components/Searchbar1.jsx";
 import { ScrollView } from "react-native-gesture-handler";
 
 const Tab = createMaterialTopTabNavigator();
