@@ -64,7 +64,10 @@ const HomeFooter = (props) => {
           />
           <Text style={[styles.navDesc, styles.navIcons]}>Mua sắm</Text>
         </View>
-        <View style={[styles.navCont, styles.gift]}>
+        <View
+          style={[styles.navCont, styles.gift]}
+          onStartShouldSetResponder={props.quaTang}
+        >
           <SimpleLineIcons
             name="present"
             size={23}

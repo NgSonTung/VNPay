@@ -69,6 +69,13 @@ class HomeScreen extends Component {
       this.props.navigation.navigate("login");
     }
   };
+  quaTang = () => {
+    if (this.props.loggedIn) this.props.navigation.navigate("qua");
+    else {
+      this.props.navigation.navigate("qua");
+      this.props.navigation.navigate("login");
+    }
+  };
 
   render() {
     return (
@@ -124,7 +131,11 @@ class HomeScreen extends Component {
         />
 
         {/* FOOTER */}
-        <HomeFooter notification={this.notification} scrollY={this.scrollY} />
+        <HomeFooter
+          quaTang={this.quaTang}
+          notification={this.notification}
+          scrollY={this.scrollY}
+        />
 
         <StatusBar hidden style={"auto"} />
       </SafeAreaView>

@@ -91,6 +91,9 @@ export default function App() {
           <Stack.Screen options={{ headerShown: false }} name="chuyentien">
             {(props) => <CTPage navigation={props.navigation} />}
           </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="qua">
+            {(props) => <Gift navigation={props.navigation} />}
+          </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     );
