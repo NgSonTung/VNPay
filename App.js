@@ -3,6 +3,7 @@ import LoginScreen from "./app/screens/LoginScreen";
 import NTHeader from "./app/components/NTHeader";
 import NTHead from "./app/screens/NapTien";
 import XNPage from "./app/screens/XacNhanGiaoDich";
+import CTDenViPage from "./app/screens/ChuyenTienDenVi";
 import CTPage from "./app/screens/ChuyenTien";
 import Notification from "./app/screens/Notification";
 import Gift from "./app/screens/Gift";
