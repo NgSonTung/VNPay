@@ -14,14 +14,7 @@ const banners = [
   "https://vidientu.vnpay.vn/images/web/banner/17f1b446c710000000000000321.jpeg",
 ];
 const windowHeight = Dimensions.get("window").height;
-const marginBottom =
-  windowHeight < 865.2
-    ? Platform.OS === "android"
-      ? 255 - 865.2 + windowHeight
-      : 260 - 865.2 + windowHeight
-    : Platform.OS === "android"
-    ? 255 + 865.2 - windowHeight
-    : 260 + 865.2 - windowHeight;
+const marginBottom = 300;
 
 const imgConHeight = 100;
 const imgConWidth = 380;

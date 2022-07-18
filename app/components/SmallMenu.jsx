@@ -7,40 +7,47 @@ const SmallMenu = (props) => {
       shadowOpacity: props.scrollY.interpolate({
         inputRange: [0, 10],
         outputRange: [0.05, 0],
+        extrapolate: "clamp",
       }),
     },
     text: {
       opacity: props.scrollY.interpolate({
         inputRange: [0, 10, 250.2],
         outputRange: [1, 0, 0],
+        extrapolate: "clamp",
       }),
     },
     img1Height: {
       height: props.scrollY.interpolate({
         inputRange: [0, 250.2],
         outputRange: [50, 50],
+        extrapolate: "clamp",
       }),
     },
     img2Height: {
       height: props.scrollY.interpolate({
         inputRange: [0, 250.2],
         outputRange: [50, 43],
+        extrapolate: "clamp",
       }),
     },
     img3Height: {
       height: props.scrollY.interpolate({
         inputRange: [0, 250.2],
         outputRange: [50, 36],
+        extrapolate: "clamp",
       }),
     },
     container: {
       marginTop: props.scrollY.interpolate({
         inputRange: [0, 250.2],
         outputRange: [20, 30],
+        extrapolate: "clamp",
       }),
       flex: props.scrollY.interpolate({
         inputRange: [0, 250.2],
         outputRange: [1, 0],
+        extrapolate: "clamp",
       }),
       borderRadius: props.scrollY.interpolate({
         inputRange: [0, 250.2],
@@ -49,23 +56,22 @@ const SmallMenu = (props) => {
       backgroundColor: props.scrollY.interpolate({
         inputRange: [0, 250.2],
         outputRange: ["white", "#E6F4FC"],
+        extrapolate: "clamp",
       }),
       marginLeft: props.scrollY.interpolate({
         inputRange: [0, 250.2],
         outputRange: [0, 30],
+        extrapolate: "clamp",
       }),
       transform: [
         {
           translateX: props.scrollY.interpolate({
             inputRange: [0, 250.2],
             outputRange: [1, 5],
+            extrapolate: "clamp",
           }),
         },
       ],
-      zIndex: props.scrollY.interpolate({
-        inputRange: [0, 250.2],
-        outputRange: [0, 10],
-      }),
     },
     imgTransformY: {
       transform: [
@@ -73,16 +79,14 @@ const SmallMenu = (props) => {
           translateY: props.scrollY.interpolate({
             inputRange: [0, 250.2],
             outputRange: [1, 22],
+            extrapolate: "clamp",
           }),
         },
       ],
     },
   });
   return (
-    <Animated.View
-      ref={props.reference}
-      style={[styles.firstBar, animations.firstBar]}
-    >
+    <Animated.View style={[styles.firstBar, animations.firstBar]}>
       <Animated.View style={[styles.animated]}>
         <Animated.View
           onStartShouldSetResponder={props.napTien}
@@ -157,9 +161,9 @@ export default SmallMenu;
 
 const styles = StyleSheet.create({
   firstBar: {
+    marginHorizontal: 11.5,
     backgroundColor: "white",
     height: 90,
-    width: "100%",
     borderRadius: 17,
     shadowColor: "#000",
     shadowOffset: {

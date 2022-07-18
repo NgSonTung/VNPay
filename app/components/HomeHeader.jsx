@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,10 +6,27 @@ import {
   View,
   Platform,
   Animated,
-  Alert,
+  Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+
 const HomeHeader = (props) => {
+  const animation = StyleSheet.create({
+    transform: {
+      transform: [
+        {
+          translateY: props.y,
+        },
+      ],
+    },
+    menu: {
+      right: props.scrollY.interpolate({
+        inputRange: [0, 250],
+        outputRange: [-400, 0],
+        extrapolate: "clamp",
+      }),
+    },
+  });
   const loggedIn = (props) => {
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
@@ -56,41 +73,71 @@ const HomeHeader = (props) => {
   const currencyFormat = (num) => {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   };
+
   return (
     <Animated.View
       style={[
         styles.header,
-        {
-          zIndex: props.scrollY.interpolate({
-            inputRange: [0, 250, 250.2],
-            outputRange: [0, 0, 5],
-          }),
-        },
+        // {
+        //   zIndex: props.scrollY.interpolate({
+        //     inputRange: [0, 250, 250.2],
+        //     outputRange: [10, 0, 5],
+        //   }),
+        // },
       ]}
     >
-      <Animated.View
-        style={[
-          styles.animatedView,
-          {
-            transform: [{ translateY: props.y }],
-            width: "100%",
-          },
-        ]}
-      >
-        <View>
+      <Animated.View style={styles.animatedView}>
+        <Animated.View style={[styles.iconCont, animation.menu]}>
           <Image
-            style={styles.avatar}
+            style={styles.avatarIcon}
+            source={require("../assets/avatar2.png")}
+          />
+
+          <View
+            style={styles.iconBgr}
+            onStartShouldSetResponder={props.napTien}
+          >
+            <Image
+              style={styles.icon}
+              source={require("../assets/naptien.png")}
+            />
+          </View>
+          <View
+            style={[styles.iconBgr, { backgroundColor: "#FEEDEA" }]}
+            onStartShouldSetResponder={props.viGD}
+          >
+            <Image style={styles.icon} source={require("../assets/viGD.png")} />
+          </View>
+          <View
+            style={styles.iconBgr}
+            onStartShouldSetResponder={props.chuyenTien}
+          >
+            <Image
+              style={styles.icon}
+              source={require("../assets/chuyentien.png")}
+            />
+          </View>
+          <View style={styles.iconBgr} onStartShouldSetResponder={props.myQR}>
+            <Image style={styles.icon} source={require("../assets/myQR.png")} />
+          </View>
+        </Animated.View>
+        <Animated.View style={animation.transform}>
+          <Image
+            style={[styles.avatar]}
             source={require("../assets/avatar2.png")}
           />
           <Image
-            style={styles.avatarRing}
+            style={[styles.avatarRing]}
             source={require("../assets/avatarRing.png")}
           />
-        </View>
-        <View style={styles.loginBar}>
+        </Animated.View>
+        <Animated.View style={[styles.loginBar, animation.transform]}>
           {props.loggedIn ? loggedIn(props) : loggedOut(props)}
-        </View>
-        <Image style={styles.logo} source={require("../assets/logo2.png")} />
+        </Animated.View>
+        <Animated.Image
+          style={[styles.logo, animation.transform]}
+          source={require("../assets/logo2.png")}
+        />
       </Animated.View>
     </Animated.View>
   );
@@ -100,9 +147,9 @@ export default HomeHeader;
 
 const styles = StyleSheet.create({
   header: {
-    position: "absolute",
     width: "100%",
-    zIndex: -1,
+    height: 76.2,
+    zIndex: 0,
     elevation: 2,
     top: 0,
     paddingVertical: 15,
@@ -118,6 +165,7 @@ const styles = StyleSheet.create({
   },
   animatedView: {
     flexDirection: "row",
+    width: "100%",
   },
   avatar: {
     width: 45,
@@ -173,5 +221,28 @@ const styles = StyleSheet.create({
     color: "#005AAB",
     fontWeight: "bold",
     fontSize: 17,
+  },
+  iconCont: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "center",
+    position: "absolute",
+  },
+  iconBgr: {
+    justifyContent: "center",
+    alignSelf: "center",
+    padding: 4,
+    marginHorizontal: 17,
+    borderRadius: 100,
+    backgroundColor: "#E6F3FC",
+  },
+  icon: {
+    width: 32,
+    height: 32,
+  },
+  avatarIcon: {
+    width: 40,
+    height: 40,
+    marginHorizontal: 17,
   },
 });

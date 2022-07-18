@@ -25,7 +25,13 @@ const BigMenu = (props) => {
     },
   });
   return (
-    <Animated.View style={[styles.secondBar, animations.container]}>
+    <Animated.View
+      style={[
+        styles.secondBar,
+        animations.container,
+        { marginHorizontal: 11.5 },
+      ]}
+    >
       <Text style={styles.trademark}>VNPAY</Text>
 
       <View style={styles.barRows}>
@@ -171,7 +177,6 @@ const styles = StyleSheet.create({
   secondBar: {
     backgroundColor: "white",
     paddingVertical: 17,
-    width: "100%",
     borderRadius: 17,
     shadowColor: "#000",
     shadowOffset: {

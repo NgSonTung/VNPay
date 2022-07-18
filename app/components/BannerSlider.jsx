@@ -58,7 +58,7 @@ class BannerSlider extends React.Component {
   };
   render() {
     return (
-      <View style={{ marginTop: 17 }}>
+      <View style={{ marginTop: 17, zIndex: 0 }}>
         <ScrollView
           showsHorizontalScrollIndicator={false}
           pagingEnabled

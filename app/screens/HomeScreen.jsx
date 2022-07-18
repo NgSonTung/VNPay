@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
-import React, { Component } from "react";
+import React, { Componen, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-
 import {
   Platform,
   SafeAreaView,
@@ -9,6 +8,7 @@ import {
   Animated,
   StyleSheet,
 } from "react-native";
+import { useSharedValue, useAnimatedStyle } from "react-native-reanimated";
 import BannerSlider from "../components/BannerSlider.jsx";
 import BannerSliderMini from "../components/BannerSliderMini.jsx";
 import BigMenu from "../components/BigMenu.jsx";
@@ -16,144 +16,133 @@ import SmallMenu from "../components/SmallMenu.jsx";
 import HomeHeader from "../components/HomeHeader.jsx";
 import HomeFooter from "../components/HomeFooter.jsx";
 
-class HomeScreen extends Component {
-  constructor() {
-    super();
-    this.state = { eyeOn: false };
-  }
-  scrollY = new Animated.Value(0);
+export default function HomeScreen(props) {
+  const [eyeOn, setEye] = useState(false);
+  const scrollY = new Animated.Value(0);
 
-  balanceHide = () => {
-    this.state.eyeOn
-      ? this.setState({ eyeOn: false })
-      : this.setState({ eyeOn: true });
+  const balanceHide = () => {
+    eyeOn ? setEye(false) : setEye(true);
   };
 
-  logIn = () => {
-    if (this.props.loggedIn == false) {
-      this.props.navigation.navigate("login");
+  const logIn = () => {
+    if (props.loggedIn == false) {
+      props.navigation.navigate("login");
     }
   };
-  napTien = () => {
-    if (this.props.loggedIn) this.props.navigation.navigate("naptien");
+  const napTien = () => {
+    if (props.loggedIn) props.navigation.navigate("naptien");
     else {
-      this.props.navigation.navigate("naptien");
-      this.props.navigation.navigate("login");
+      props.navigation.navigate("naptien");
+      props.navigation.navigate("login");
     }
   };
-  myQR = () => {
-    if (this.props.loggedIn) this.props.navigation.navigate("myQR");
+  const myQR = () => {
+    if (props.loggedIn) props.navigation.navigate("myQR");
     else {
-      this.props.navigation.navigate("myQR");
-      this.props.navigation.navigate("login");
+      props.navigation.navigate("myQR");
+      props.navigation.navigate("login");
     }
   };
-  viGD = () => {
-    if (this.props.loggedIn) this.props.navigation.navigate("viGD");
+  const viGD = () => {
+    if (props.loggedIn) props.navigation.navigate("viGD");
     else {
-      this.props.navigation.navigate("viGD");
-      this.props.navigation.navigate("login");
+      props.navigation.navigate("viGD");
+      props.navigation.navigate("login");
     }
   };
-  notification = () => {
-    if (this.props.loggedIn) this.props.navigation.navigate("thongbao");
+  const notification = () => {
+    if (props.loggedIn) props.navigation.navigate("thongbao");
     else {
-      this.props.navigation.navigate("thongbao");
-      this.props.navigation.navigate("login");
+      props.navigation.navigate("thongbao");
+      props.navigation.navigate("login");
     }
   };
-  chuyenTien = () => {
-    if (this.props.loggedIn) this.props.navigation.navigate("chuyentien");
+  const chuyenTien = () => {
+    if (props.loggedIn) props.navigation.navigate("chuyentien");
     else {
-      this.props.navigation.navigate("chuyentien");
-      this.props.navigation.navigate("login");
+      props.navigation.navigate("chuyentien");
+      props.navigation.navigate("login");
     }
   };
-  quaTang = () => {
-    if (this.props.loggedIn) this.props.navigation.navigate("qua");
+  const quaTang = () => {
+    if (props.loggedIn) props.navigation.navigate("qua");
     else {
-      this.props.navigation.navigate("qua");
-      this.props.navigation.navigate("login");
+      props.navigation.navigate("qua");
+      props.navigation.navigate("login");
     }
   };
 
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        {/* main */}
-        <Animated.ScrollView
-          showsVerticalScrollIndicator={false}
-          style={[
-            styles.main,
-            {
-              zIndex: this.scrollY.interpolate({
-                inputRange: [0, 250, 250.2],
-                outputRange: [0, 0, 10],
-              }),
-            },
-          ]}
-          onScroll={(e) => {
-            this.scrollY.setValue(e.nativeEvent.contentOffset.y);
-          }}
-          scrollEventThrottle={20}
-          snapToInterval={Platform.OS === "android" ? 270 : 288}
-          snapToAlignment={"start"}
-          pagingEnabled
-        >
-          <BannerSlider />
-          <SmallMenu
-            napTien={this.napTien}
-            myQR={this.myQR}
-            viGD={this.viGD}
-            chuyenTien={this.chuyenTien}
-            reference={(ref) => (this.view = ref)}
-            scrollY={this.scrollY}
-          />
-          <BigMenu scrollY={this.scrollY} />
-          <BannerSliderMini />
-        </Animated.ScrollView>
-
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* main */}
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        style={[
+          styles.main,
+          {
+            zIndex: scrollY.interpolate({
+              inputRange: [0, 250, 250.2],
+              outputRange: [0, 0, 10],
+            }),
+          },
+        ]}
+        onScroll={(e) => {
+          scrollY.setValue(e.nativeEvent.contentOffset.y);
+        }}
+        scrollEventThrottle={20}
+        snapToInterval={Platform.OS === "android" ? 270 : 288}
+        snapToAlignment={"start"}
+        pagingEnabled
+        stickyHeaderIndices={[0]}
+      >
         {/* HEADER */}
 
         <HomeHeader
-          screen={this.props.name}
-          y={this.scrollY.interpolate({
+          screen={props.name}
+          y={scrollY.interpolate({
             inputRange: [0, 76.2],
             outputRange: [0, -76.2],
+            extrapolate: "clamp",
           })}
-          scrollY={this.scrollY}
-          balance={this.props.balance}
-          eyeOn={this.state.eyeOn}
-          handlePress={this.balanceHide}
-          loggedIn={this.props.loggedIn}
-          logIn={this.logIn}
-          name={this.props.name}
+          scrollY={scrollY}
+          balance={props.balance}
+          eyeOn={eyeOn}
+          handlePress={balanceHide}
+          loggedIn={props.loggedIn}
+          logIn={logIn}
+          name={props.name}
+          napTien={napTien}
+          myQR={myQR}
+          viGD={viGD}
+          chuyenTien={chuyenTien}
         />
-
-        {/* FOOTER */}
-        <HomeFooter
-          quaTang={this.quaTang}
-          notification={this.notification}
-          scrollY={this.scrollY}
+        <BannerSlider />
+        <SmallMenu
+          napTien={napTien}
+          myQR={myQR}
+          viGD={viGD}
+          chuyenTien={chuyenTien}
+          scrollY={scrollY}
         />
+        <BigMenu scrollY={scrollY} />
+        <BannerSliderMini />
+      </Animated.ScrollView>
 
-        <StatusBar hidden style={"auto"} />
-      </SafeAreaView>
-    );
-  }
+      {/* FOOTER */}
+      <HomeFooter
+        quaTang={quaTang}
+        notification={notification}
+        scrollY={scrollY}
+      />
+
+      <StatusBar hidden style={"auto"} />
+    </SafeAreaView>
+  );
 }
-export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5FBFF",
-    overflow: "hidden",
-  },
-  main: {
-    marginHorizontal: 11.5,
-    paddingTop: 76.2,
-    zIndex: 0,
-    elevation: 4,
   },
 });
