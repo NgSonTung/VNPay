@@ -16,12 +16,14 @@ import {
 
 import CTHeader from "../components/CTHeader";
 import Tabs from "../components/CTMain";
+import Searchbar1 from "../components/Searchbar1.jsx";
+import Searchbar from "../components/Searchbar";
 
 export default function CTPage(props) {
   return (
     <View style={styles.container}>
       <CTHeader navigation={props.navigation} />
-
+      <Searchbar1 />
       {/* <NavigationContainer> */}
       <Tabs />
       {/* </NavigationContainer> */}

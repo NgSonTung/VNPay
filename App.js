@@ -47,7 +47,7 @@ export default function App() {
   else
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="home">
+        <Stack.Navigator initialRouteName="chuyentiendenvi">
           <Stack.Screen options={{ headerShown: false }} name="home">
             {(props) => (
               <HomeScreen
@@ -69,7 +69,12 @@ export default function App() {
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="naptien">
-            {(props) => <NTHead navigation={props.navigation} />}
+            {(props) => (
+            <NTHead 
+              navigation={props.navigation} 
+              balance={accountInfo.balance}
+            />
+            )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="myQR">
             {(props) => (
@@ -95,6 +100,24 @@ export default function App() {
           <Stack.Screen options={{ headerShown: false }} name="qua">
             {(props) => <Gift navigation={props.navigation} />}
           </Stack.Screen>
+
+          {/* <Stack.Screen options={{ headerShown: false }} name="xacnhan">
+            {(props) => (
+            <XNPage 
+              navigation={props.navigation} 
+              balance={accountInfo.balance}
+              name={accountInfo.name}
+            /> */}
+
+          {/* <Stack.Screen options={{ headerShown: false }} name="chuyentiendenvi">
+            {(props) => (
+              <CTDenViPage
+              navigation={props.navigation} 
+              balance={accountInfo.balance}
+              name={accountInfo.name}
+              />
+            )}
+          </Stack.Screen> */}
         </Stack.Navigator>
       </NavigationContainer>
     );

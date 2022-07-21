@@ -35,16 +35,17 @@ export default function CTDenViHeader(){
 
 
   const styles = StyleSheet.create({
-    headerSafeArea: {
-      paddingTop: StatusBar.currentHeight,
-      backgroundColor: "#469cd8",
-    },
+    // headerSafeArea: {
+    //   paddingTop: StatusBar.currentHeight,
+    //   backgroundColor: "#469cd8",
+    // },
   
     headerCT: {
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
       padding: 10,
+      backgroundColor: "#469cd8",
     },
   
     headerCT_Text: {

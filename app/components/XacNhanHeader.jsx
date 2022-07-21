@@ -3,9 +3,13 @@ import { StyleSheet, Image, View, ScrollView, Platform, Text, StatusBar, color, 
 import { Ionicons } from '@expo/vector-icons'; 
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function XNHeader(){
+export default function XNHeader({balance, navigation, goBack}){
     const [ShowXN, XNsetBalanceState]= React.useState(false)
 
+    const currencyFormat = (num) => {
+        return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+      };
+    
     function XNshowBalance(){
         XNsetBalanceState (prevState => !prevState)
     }
@@ -28,7 +32,7 @@ export default function XNHeader(){
                 <View>
                     <Text style={styles.VNP}>Ví VNPAY</Text>
                     <View style={styles.Money}>
-                    <Text style={styles.Currentcy}>{ShowXN ? "123456" : "••••••"} </Text>
+                    <Text style={styles.Currentcy}>{ShowXN ? currencyFormat(balance) : "••••••"} </Text>
                         <Pressable onPress={XNshowBalance}>
                             <Text> <Ionicons name="eye-off-sharp" size={20} color="gold" /> </Text>
                         </Pressable>
@@ -43,16 +47,17 @@ export default function XNHeader(){
 }
 
 const styles = StyleSheet.create({
-    headerSafeArea:{
-        paddingTop: StatusBar.currentHeight,
-        backgroundColor: '#469cd8',
-    },
+    // headerSafeArea:{
+    //     paddingTop: StatusBar.currentHeight,
+    //     backgroundColor: '#469cd8',
+    // },
 
     headerCT:{
         flexDirection: "row",
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 10,
+        backgroundColor: '#469cd8',
     },
 
     headerCT_Text:{

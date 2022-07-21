@@ -7,11 +7,17 @@ import XNMain from "../components/XacNhanMain";
 import XNFooter from "../components/XacNhanFooter";
 
 
-export default function XNPage(){
+export default function XNPage(props){
     return(
         <View>
-            <XNHeader />
-            <XNMain />
+            <XNHeader 
+                goBack={props.navigation.goBack} 
+                //balance={props.accountInfo.balance}
+                balance={props.balance}            
+            />
+            <XNMain 
+                name={props.name}
+            />
             <XNFooter/>
         </View>
 )}
