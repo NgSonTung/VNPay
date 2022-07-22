@@ -18,9 +18,9 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function CTDenViMain(){
+export default function CTDenViMain({name}){
     return(
-      <View>
+      <View style={styles.mainNT_BGC}>
         <View style={styles.mainNT_Conteiner}>
             <View style={styles.mainNT_InputBox_Top}>
               <View style={styles.mainNT_InputBox_SDT}>
@@ -41,7 +41,7 @@ export default function CTDenViMain(){
                 <View style={styles.mainNT_InputBox_Message}>
                     <Text>Nội dung</Text>
                     <TextInput 
-                        placeholder="Nguyễn Văn A chuyển tiền" 
+                        placeholder= "Text"
                         style={styles.mainNT_Input_Placeholder}
                     />
                 </View>
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 10,
     borderTopColor: '#f7f6f6',
     borderTopWidth: 10,
+    backgroundColor: 'white',
 },
   mainNT_InputBox_Top:{
     flexDirection: 'row',
@@ -120,10 +121,12 @@ mainNT_InputBox_IconCoin:{
 mainNT_Conteiner_Middle:{
   borderBottomColor: '#f7f6f6',
   borderBottomWidth: 10,
+  backgroundColor: 'white',
 },
 mainNT_Conteiner_Bottom:{
   borderBottomColor: '#f7f6f6',
   borderBottomWidth: 2,
+  backgroundColor: 'white',
 },
 mainNT_Text:{
   margin: 30,

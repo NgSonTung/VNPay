@@ -22,7 +22,9 @@ export default function CTDenViPage(props) {
   return (
     <View>
       <CTDenViHeader />
-      <CTDenViMain />
+      <CTDenViMain 
+        name={props.name}
+      />
       <CTDenViFooter />
     </View>
   );

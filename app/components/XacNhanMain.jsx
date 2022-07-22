@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, color,} from "react-native";
 
-export default function XNMain(){
+export default function XNMain(props){
     return(
         <View>
             <Text style={styles.mainXN_Text}>XÁC NHẬN THÔNG TIN</Text>    
@@ -16,7 +16,7 @@ export default function XNMain(){
                 </View>
                 <View style={styles.mainXN_Container_SetThree}>
                     <Text style={styles.mainXN_Info_Title}>Tên tài khoản/Thẻ nạp</Text>                  
-                    <Text style={styles.mainXN_Info}>BÙI HUY TƯỜNG</Text>         
+                    <Text style={styles.mainXN_Info}>{props.name}</Text>         
                 </View>
                 <Text style={styles.Border}></Text>
             </View>

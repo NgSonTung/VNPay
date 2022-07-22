@@ -13,8 +13,12 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function NTHeader(props) {
-  const [Show, setBalanceState] = React.useState(false);
+export default function NTHeader({balance, navigation, goBack}) {
+  const [Show, setBalanceState] = React.useState(true);
+
+  const currencyFormat = (num) => {
+    return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  };
 
   function showBalance() {
     setBalanceState((prevState) => !prevState);
@@ -29,7 +33,7 @@ export default function NTHeader(props) {
             size={30}
             color="white"
             style={styles.headerCT_Backbtn}
-            onPress={props.goBack}
+            onPress={goBack}
           />
           <Text style={styles.headerCT_Text}>Nạp tiền vào ví </Text>
           <Text> </Text>
@@ -44,7 +48,7 @@ export default function NTHeader(props) {
         <View>
           <Text style={styles.VNP}>Ví VNPAY</Text>
           <View style={styles.Money}>
-            <Text style={styles.Currentcy}>{Show ? "123456" : "••••••"} </Text>
+            <Text style={styles.Currentcy}>{Show ? currencyFormat(balance) : "••••••"}</Text>
             <Pressable onPress={showBalance}>
               <Text>
                 {" "}
@@ -57,6 +61,8 @@ export default function NTHeader(props) {
     </View>
   );
 }
+
+//{Show ? (props.balance) : "••••••"}
 
 const styles = StyleSheet.create({
   headerSafeArea: {
