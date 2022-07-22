@@ -16,7 +16,6 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import SvgComponent from "../assets/bottomBar.jsx";
-import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Searchbar1 from "../components/Searchbar1.jsx";
 import { ScrollView } from "react-native-gesture-handler";
@@ -80,7 +79,7 @@ function Tab1() {
 const Gift = () => {
   return (
     <>
-      <SafeAreaView background="white">
+      <SafeAreaView style={styles.bar}>
         <Image
           style={styles.barIcons}
           source={require("../assets/filter.png")}
@@ -276,4 +275,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 130,
   },
+  bar: {
+    backgroundColor: 'white',
+    height: 100,
+    marginBottom: -20
+  }
 });
