@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import {
   StyleSheet,
   Text,
@@ -13,13 +13,15 @@ import {
 import Searchbar from "../components/Searchbar";
 import { MaterialIcons } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import Time from "../components/Time";
 
 const Tab = createMaterialTopTabNavigator();
-
 function Khuyenmai() {
   return (
     <ScrollView>
-      <Text style={styles.text1}>15/07/2022</Text>
+      <View>
+        <Time/>
+      </View>
       <View style={styles.khuyenmai}>
         <Image style={styles.anh} source={require("../assets/1.jpg")} />
         <Image style={styles.gift} source={require("../assets/gift.png")} />
@@ -46,7 +48,10 @@ function Khuyenmai() {
           14 ngày.
         </Text>
       </View>
-      <Text style={styles.text1}>14/07/2022</Text>
+
+      <View>
+        <Time/>
+      </View>
       <View style={styles.khuyenmai}>
         <Image style={styles.anh} source={require("../assets/2.jpg")} />
         <Image style={styles.gift} source={require("../assets/gift.png")} />
@@ -95,7 +100,9 @@ function Biendong() {
 function Khac() {
   return (
     <>
-      <Text style={styles.text1}>HÔM NAY, 15/07/2022</Text>
+    <View>
+         <Time/>
+    </View>
       <View style={styles.khac}>
         <Image style={styles.logo} source={require("../assets/unnamed.png")} />
         <Text style={styles.text2}>Ví điện tử VNPAY</Text>
