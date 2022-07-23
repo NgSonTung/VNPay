@@ -70,13 +70,24 @@ function Tab1() {
       <Tab.Screen
         name="Đã sử dụng"
         component={Dasudung}
-        opions={{ tabBarLabel: "Dã sử dụng" }}
+        opions={{ tabBarLabel: "Đã sử dụng" }}
       ></Tab.Screen>
     </Tab.Navigator>
   );
 }
 
-const Gift = () => {
+const Gift = (props) => {
+  const quaTang = () => {
+    props.navigation.navigate("qua");
+  };
+
+  const notification = () => {
+    props.navigation.navigate("thongbao");
+  };
+
+  const home = () => {
+    props.navigation.navigate("home");
+  };
   return (
     <>
       <SafeAreaView style={styles.bar}>
@@ -102,7 +113,10 @@ const Gift = () => {
           />
         </View>
         <View style={styles.navMenu}>
-          <View style={[styles.navCont, styles.home]}>
+          <View
+            style={[styles.navCont, styles.home]}
+            onStartShouldSetResponder={home}
+          >
             <Entypo
               name="home"
               size={24}
@@ -111,7 +125,10 @@ const Gift = () => {
             />
             <Text style={[styles.navDesc, styles.navIcons]}>Trang chủ</Text>
           </View>
-          <View style={[styles.navCont, styles.notif]}>
+          <View
+            style={[styles.navCont, styles.notif]}
+            onStartShouldSetResponder={notification}
+          >
             <MaterialIcons
               name="mail-outline"
               size={24}
@@ -134,7 +151,10 @@ const Gift = () => {
             />
             <Text style={[styles.navDesc, styles.navIcons]}>Mua sắm</Text>
           </View>
-          <View style={[styles.navCont, styles.gift]}>
+          <View
+            style={[styles.navCont, styles.gift]}
+            onStartShouldSetResponder={quaTang}
+          >
             <SimpleLineIcons
               name="present"
               size={23}
@@ -276,8 +296,8 @@ const styles = StyleSheet.create({
     width: 130,
   },
   bar: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     height: 100,
-    marginBottom: -20
-  }
+    marginBottom: -20,
+  },
 });
