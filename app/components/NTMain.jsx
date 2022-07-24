@@ -5,7 +5,23 @@ import { AntDesign } from '@expo/vector-icons';
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 
 
-export default function NTMain(){
+export default function NTMain(props){
+    const [moneyInput, setAmount] = React.useState("")
+
+    const [click, setClick] =React.useState(false)
+
+    function checkBlank() {
+        if (moneyInput.trim() && moneyInput != 0)
+        {
+            console.log("pressed")
+        }
+        else
+        {
+            alert("Số tiền không hợp lệ")
+        }
+
+    }
+
     return(   
          <View> 
             <View style={styles.mainNT}>
@@ -32,7 +48,8 @@ export default function NTMain(){
                             placeholder="Số tiền nạp (VND)" 
                             style={styles.mainNT_Input_Placeholder}
                             keyboardType= 'decimal-pad'
-                        />
+                            onChangeText={(value) => setAmount(value)}
+                            />
                     </View>
                     <View style={styles.mainNT_Input_Question}>
                         <Text> Hạn mức </Text>
@@ -125,7 +142,12 @@ export default function NTMain(){
             </View>
 
             <View style={styles.submit}>
-                <Text style={styles.submit_Button}>Tiếp tục</Text>
+                <Pressable 
+                    onPress={checkBlank}
+                    disabled={click}
+                >
+                    <Text style={styles.submitText}>Tiếp tục</Text>
+                </Pressable>
             </View>
         </View>
     )
@@ -253,11 +275,16 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         width: 300,
-        backgroundColor: '#f7f6f6',
-        borderColor: '#f7f6f6',
+        backgroundColor: '#469cd8',
+        borderColor: '#469cd8',
         borderWidth: 2,
         borderRadius: 25,
         marginTop: 10,
         marginLeft: "13.5%",
     },    
+    submitText:{
+        color: 'white',
+        width: 300,
+        textAlign: 'center',
+    }
 })
