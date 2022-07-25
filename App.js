@@ -141,7 +141,12 @@ export default function App() {
             )}
           </Stack.Screen> */}
           <Stack.Screen options={{ headerShown: false }} name="qua">
-            {(props) => <Gift navigation={props.navigation} />}
+            {(props) => (
+              <>
+                <Load/>
+                <Gift navigation={props.navigation} />
+              </>
+            )}
           </Stack.Screen>
 
         </Stack.Navigator>
