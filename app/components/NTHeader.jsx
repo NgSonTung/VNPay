@@ -14,7 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function NTHeader({balance, navigation, goBack}) {
-  const [Show, setBalanceState] = React.useState(true);
+  const [Show, setBalanceState] = React.useState(false);
 
   const currencyFormat = (num) => {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");

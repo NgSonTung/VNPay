@@ -66,17 +66,6 @@ export default function App() {
               />
             )}
           </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="menu">
-            {(props) => (
-              <MenuScreen
-                navigation={props.navigation}
-                balance={accountInfo.balance}
-                loggedIn={loggedIn}
-                name={accountInfo.name}
-                setLogin={setLogin}
-              />
-            )}
-          </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="login">
             {(props) => (
               <LoginScreen
@@ -120,7 +109,6 @@ export default function App() {
           <Stack.Screen options={{ headerShown: false }} name="qua">
             {(props) => <Gift navigation={props.navigation} />}
           </Stack.Screen>
-
           <Stack.Screen options={{ headerShown: false }} name="xacnhan">
             {(props) => (
               <XNPage
@@ -130,13 +118,23 @@ export default function App() {
               />
             )}
           </Stack.Screen>
-
           <Stack.Screen options={{ headerShown: false }} name="chuyentiendenvi">
             {(props) => (
               <CTDenViPage
                 navigation={props.navigation}
                 balance={accountInfo.balance}
                 name={accountInfo.name}
+              />
+            )}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="menu">
+            {(props) => (
+              <MenuScreen
+                navigation={props.navigation}
+                balance={accountInfo.balance}
+                loggedIn={loggedIn}
+                name={accountInfo.name}
+                setLogin={setLogin}
               />
             )}
           </Stack.Screen>

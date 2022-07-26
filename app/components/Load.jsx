@@ -1,45 +1,47 @@
-import React, {Component} from 'react';
-import { 
-  Text,
-  View, 
-  StyleSheet, 
-  Image,
-  ActivityIndicator, 
-} from 'react-native'
+import React, { Component, useEffect, useState } from "react";
+import { Text, View, StyleSheet, Image, ActivityIndicator } from "react-native";
 
-export default class Load extends Component{
-  componentWillMount(){
+const Load = () => {
+  const [showLoad, setLoad] = useState(true);
+
+  useEffect(() => {
     setTimeout(() => {
-      this.setState({
-        showMe : false
-      })
-    }, 1000)
-  }
+      setLoad(!showLoad);
+    }, 1000);
+  }, []);
 
-  render(){
-  return(
-    <View style={styles.container}>
-        <>
-          <ActivityIndicator size={80} color="red" />
-          <Image style={styles.logo} source={require("../assets/logo1.png")} />
-        </>
-    </View>
-  )
-  }
-}
+  return (
+    <>
+      {showLoad && (
+        <View style={[StyleSheet.absoluteFillObject, styles.container]}>
+          <>
+            <ActivityIndicator size={80} color="red" />
+            <Image
+              style={styles.logo}
+              source={require("../assets/logo1.png")}
+            />
+          </>
+        </View>
+      )}
+    </>
+  );
+};
+
+export default Load;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
     justifyContent: "center",
-    backgroundColor: 'transparent',
+    backgroundColor: "rgba(0,0,0,0.3)",
+    zIndex: 1,
   },
-   logo: {
+  logo: {
     width: 60,
     height: 60,
     marginLeft: 175,
     marginTop: -70,
     backgroundColor: "white",
-    borderRadius: 50
-   }
-})
+    borderRadius: 50,
+  },
+});
