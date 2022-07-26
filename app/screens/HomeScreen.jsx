@@ -15,6 +15,7 @@ import BigMenu from "../components/BigMenu.jsx";
 import SmallMenu from "../components/SmallMenu.jsx";
 import HomeHeader from "../components/HomeHeader.jsx";
 import HomeFooter from "../components/HomeFooter.jsx";
+import Load from "../components/Load";
 
 export default function HomeScreen(props) {
   const [eyeOn, setEye] = useState(false);
@@ -77,71 +78,74 @@ export default function HomeScreen(props) {
     }
   };
   return (
-    <SafeAreaView style={styles.container}>
-      {/* main */}
-      <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        style={[
-          styles.main,
-          {
-            zIndex: scrollY.interpolate({
-              inputRange: [0, 250, 250.2],
-              outputRange: [0, 0, 10],
-            }),
-          },
-        ]}
-        onScroll={(e) => {
-          scrollY.setValue(e.nativeEvent.contentOffset.y);
-        }}
-        scrollEventThrottle={20}
-        snapToInterval={Platform.OS === "android" ? 270 : 288}
-        snapToAlignment={"start"}
-        pagingEnabled
-        stickyHeaderIndices={[0]}
-      >
-        {/* HEADER */}
+    <>
+      <Load />
+      <SafeAreaView style={styles.container}>
+        {/* main */}
+        <Animated.ScrollView
+          showsVerticalScrollIndicator={false}
+          style={[
+            styles.main,
+            {
+              zIndex: scrollY.interpolate({
+                inputRange: [0, 250, 250.2],
+                outputRange: [0, 0, 10],
+              }),
+            },
+          ]}
+          onScroll={(e) => {
+            scrollY.setValue(e.nativeEvent.contentOffset.y);
+          }}
+          scrollEventThrottle={20}
+          snapToInterval={Platform.OS === "android" ? 270 : 288}
+          snapToAlignment={"start"}
+          pagingEnabled
+          stickyHeaderIndices={[0]}
+        >
+          {/* HEADER */}
 
-        <HomeHeader
-          screen={props.name}
-          y={scrollY.interpolate({
-            inputRange: [0, 76.2],
-            outputRange: [0, -76.2],
-            extrapolate: "clamp",
-          })}
+          <HomeHeader
+            screen={props.name}
+            y={scrollY.interpolate({
+              inputRange: [0, 76.2],
+              outputRange: [0, -76.2],
+              extrapolate: "clamp",
+            })}
+            scrollY={scrollY}
+            balance={props.balance}
+            eyeOn={eyeOn}
+            handlePress={balanceHide}
+            loggedIn={props.loggedIn}
+            logIn={logIn}
+            name={props.name}
+            napTien={napTien}
+            myQR={myQR}
+            viGD={viGD}
+            chuyenTien={chuyenTien}
+            menu={menu}
+          />
+          <BannerSlider />
+          <SmallMenu
+            napTien={napTien}
+            myQR={myQR}
+            viGD={viGD}
+            chuyenTien={chuyenTien}
+            scrollY={scrollY}
+          />
+          <BigMenu scrollY={scrollY} />
+          <BannerSliderMini />
+        </Animated.ScrollView>
+
+        {/* FOOTER */}
+        <HomeFooter
+          quaTang={quaTang}
+          notification={notification}
           scrollY={scrollY}
-          balance={props.balance}
-          eyeOn={eyeOn}
-          handlePress={balanceHide}
-          loggedIn={props.loggedIn}
-          logIn={logIn}
-          name={props.name}
-          napTien={napTien}
-          myQR={myQR}
-          viGD={viGD}
-          chuyenTien={chuyenTien}
-          menu={menu}
         />
-        <BannerSlider />
-        <SmallMenu
-          napTien={napTien}
-          myQR={myQR}
-          viGD={viGD}
-          chuyenTien={chuyenTien}
-          scrollY={scrollY}
-        />
-        <BigMenu scrollY={scrollY} />
-        <BannerSliderMini />
-      </Animated.ScrollView>
 
-      {/* FOOTER */}
-      <HomeFooter
-        quaTang={quaTang}
-        notification={notification}
-        scrollY={scrollY}
-      />
-
-      <StatusBar hidden style={"auto"} />
-    </SafeAreaView>
+        <StatusBar hidden style={"auto"} />
+      </SafeAreaView>
+    </>
   );
 }
 

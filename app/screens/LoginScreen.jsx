@@ -14,6 +14,7 @@ import {
   Alert,
 } from "react-native";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import Load from "../components/Load";
 
 const LoginScreen = (props) => {
   const [tempNo, setTempNo] = useState("");
@@ -52,136 +53,142 @@ const LoginScreen = (props) => {
     }
   };
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
-      {/* HEADER */}
-      <View style={styles.header}>
-        <MaterialIcons
-          style={styles.returnBtn}
-          name="arrow-back-ios"
-          size={19}
-          color="black"
-          onPress={() => props.navigation.navigate("home")}
-        />
-        <Image
-          style={styles.logo}
-          resizeMode={"contain"}
-          source={require("../assets/logo3.png")}
-        />
-      </View>
-      {/* MAIN */}
-      <View style={styles.main}>
-        <View style={styles.greetingsCont}>
-          {loginStep == 2 ? (
-            <Text style={styles.greetings1}>Xin chào</Text>
-          ) : null}
-          <Text style={styles.greetings2}>
-            {loginStep == 1 ? "Xin chào!" : "Quý khách"}
-          </Text>
+    <>
+      <Load />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        {/* HEADER */}
+        <View style={styles.header}>
+          <MaterialIcons
+            style={styles.returnBtn}
+            name="arrow-back-ios"
+            size={19}
+            color="black"
+            onPress={() => props.navigation.navigate("home")}
+          />
+          <Image
+            style={styles.logo}
+            resizeMode={"contain"}
+            source={require("../assets/logo3.png")}
+          />
         </View>
-        <Image
-          style={styles.avatar}
-          resizeMode={"contain"}
-          source={require("../assets/avatarBig.png")}
-        />
-        {loginStep == 1 ? (
-          <Text style={styles.desc}>
-            Quý khách vui lòng nhập SĐT để đăng nhập/đăng ký
-          </Text>
-        ) : null}
-        <View style={styles.eye}>
+        {/* MAIN */}
+        <View style={styles.main}>
+          <View style={styles.greetingsCont}>
+            {loginStep == 2 ? (
+              <Text style={styles.greetings1}>Xin chào</Text>
+            ) : null}
+            <Text style={styles.greetings2}>
+              {loginStep == 1 ? "Xin chào!" : "Quý khách"}
+            </Text>
+          </View>
+          <Image
+            style={styles.avatar}
+            resizeMode={"contain"}
+            source={require("../assets/avatarBig.png")}
+          />
           {loginStep == 1 ? (
-            <TextInput
-              style={styles.input}
-              placeholder={"Số điện thoại"}
-              keyboardType={"phone-pad"}
-              maxLength={10}
-              onChangeText={(value) => setTempNo(() => value)}
-            />
-          ) : (
-            <TextInput
-              style={styles.input}
-              placeholder={"Nhập mật khẩu"}
-              keyboardType={"default"}
-              secureTextEntry={hidePassword ? true : false}
-              onChangeText={(value) => setTempPassword(() => value)}
-            />
-          )}
-          {loginStep == 2 ? (
-            <View
-              onStartShouldSetResponder={() =>
-                setHidePassword(() => (hidePassword ? false : true))
-              }
-            >
-              <Ionicons
-                style={[
-                  styles.hide,
-                  { display: hidePassword ? "none" : "flex" },
-                ]}
-                name="eye"
-                size={17}
-                color="#FFAA4F"
+            <Text style={styles.desc}>
+              Quý khách vui lòng nhập SĐT để đăng nhập/đăng ký
+            </Text>
+          ) : null}
+          <View style={styles.eye}>
+            {loginStep == 1 ? (
+              <TextInput
+                style={styles.input}
+                placeholder={"Số điện thoại"}
+                keyboardType={"phone-pad"}
+                maxLength={10}
+                onChangeText={(value) => setTempNo(() => value)}
               />
-              <Ionicons
-                style={[
-                  styles.hide,
-                  { display: hidePassword ? "flex" : "none" },
-                ]}
-                name="eye-off-sharp"
-                size={17}
-                color="#FFAA4F"
+            ) : (
+              <TextInput
+                style={styles.input}
+                placeholder={"Nhập mật khẩu"}
+                keyboardType={"default"}
+                secureTextEntry={hidePassword ? true : false}
+                onChangeText={(value) => setTempPassword(() => value)}
               />
+            )}
+            {loginStep == 2 ? (
+              <View
+                onStartShouldSetResponder={() =>
+                  setHidePassword(() => (hidePassword ? false : true))
+                }
+              >
+                <Ionicons
+                  style={[
+                    styles.hide,
+                    { display: hidePassword ? "none" : "flex" },
+                  ]}
+                  name="eye"
+                  size={17}
+                  color="#FFAA4F"
+                />
+                <Ionicons
+                  style={[
+                    styles.hide,
+                    { display: hidePassword ? "flex" : "none" },
+                  ]}
+                  name="eye-off-sharp"
+                  size={17}
+                  color="#FFAA4F"
+                />
+              </View>
+            ) : null}
+          </View>
+          {inputIsRight == "thieu" ? (
+            <View style={styles.errCont}>
+              <Ionicons name="ios-warning" size={15} color="#ED1C24" />
+              <Text style={styles.errText}>
+                Số điện thoại không được bỏ trống. Vui lòng kiểm tra lại.
+              </Text>
             </View>
           ) : null}
-        </View>
-        {inputIsRight == "thieu" ? (
-          <View style={styles.errCont}>
-            <Ionicons name="ios-warning" size={15} color="#ED1C24" />
-            <Text style={styles.errText}>
-              Số điện thoại không được bỏ trống. Vui lòng kiểm tra lại.
-            </Text>
-          </View>
-        ) : null}
-        {inputIsRight == "sai" ? (
-          <View style={styles.errCont}>
-            <Ionicons name="ios-warning" size={15} color="#ED1C24" />
-            <Text style={styles.errText}>
-              Số điện thoại không chính xác. Vui lòng kiểm tra lại.
-            </Text>
-          </View>
-        ) : null}
-        <Text
-          style={[styles.forgot, { display: loginStep == 2 ? "flex" : "none" }]}
-        >
-          Quên mật khẩu?
-        </Text>
-        <View
-          onStartShouldSetResponder={
-            loginStep == 1 ? () => handleSubmit() : () => login()
-          }
-          style={styles.submitBtn}
-        >
-          <Text style={styles.submitText}>
-            {loginStep == 1 ? "Tiếp tục" : "Đăng nhập"}
+          {inputIsRight == "sai" ? (
+            <View style={styles.errCont}>
+              <Ionicons name="ios-warning" size={15} color="#ED1C24" />
+              <Text style={styles.errText}>
+                Số điện thoại không chính xác. Vui lòng kiểm tra lại.
+              </Text>
+            </View>
+          ) : null}
+          <Text
+            style={[
+              styles.forgot,
+              { display: loginStep == 2 ? "flex" : "none" },
+            ]}
+          >
+            Quên mật khẩu?
           </Text>
+          <View
+            onStartShouldSetResponder={
+              loginStep == 1 ? () => handleSubmit() : () => login()
+            }
+            style={styles.submitBtn}
+          >
+            <Text style={styles.submitText}>
+              {loginStep == 1 ? "Tiếp tục" : "Đăng nhập"}
+            </Text>
+          </View>
         </View>
-      </View>
-      {/* FOOTER */}
-      <View style={styles.footer}>
-        <View style={styles.termsCont}>
-          <Text style={[styles.terms]}>Điều khoản và điều kiện</Text>
-          <Text style={{ paddingHorizontal: 12 }}>|</Text>
-          <Text style={[styles.terms]}>Hướng dẫn sử dụng</Text>
+        {/* FOOTER */}
+        <View style={styles.footer}>
+          <View style={styles.termsCont}>
+            <Text style={[styles.terms]}>Điều khoản và điều kiện</Text>
+            <Text style={{ paddingHorizontal: 12 }}>|</Text>
+            <Text style={[styles.terms]}>Hướng dẫn sử dụng</Text>
+          </View>
+          <Image
+            style={{ alignSelf: "center", marginTop: 15 }}
+            source={require("../assets/bottomBar.png")}
+          />
         </View>
-        <Image
-          style={{ alignSelf: "center", marginTop: 15 }}
-          source={require("../assets/bottomBar.png")}
-        />
-      </View>
-      <StatusBar style={"auto"} />
-    </KeyboardAvoidingView>
+        <StatusBar style={"auto"} />
+      </KeyboardAvoidingView>
+    </>
   );
 };
 export default LoginScreen;

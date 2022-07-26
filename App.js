@@ -18,6 +18,7 @@ import { log } from "react-native-reanimated";
 import { initDB } from "./firebase";
 import { getData } from "./firebase";
 import { View, ActivityIndicator } from "react-native";
+import Load from "./app/components/Load";
 
 const Stack = createNativeStackNavigator();
 
@@ -78,30 +79,44 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="naptien">
             {(props) => (
-              <NTHead
-                navigation={props.navigation}
-                balance={accountInfo.balance}
-              />
+              <>
+                <Load />
+                <NTHead
+                  navigation={props.navigation}
+                  balance={accountInfo.balance}
+                />
+              </>
             )}
           </Stack.Screen>
 
           <Stack.Screen options={{ headerShown: false }} name="myQR">
             {(props) => (
-              <MyQrScreen
-                navigation={props.navigation}
-                balance={accountInfo.balance}
-                name={accountInfo.name}
-                loggedIn={loggedIn}
-              />
+              <>
+                <Load />
+                <MyQrScreen
+                  navigation={props.navigation}
+                  balance={accountInfo.balance}
+                  name={accountInfo.name}
+                  loggedIn={loggedIn}
+                />
+              </>
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="viGD">
             {(props) => (
-              <ViGD name={accountInfo.name} navigation={props.navigation} />
+              <>
+                <Load />
+                <ViGD name={accountInfo.name} navigation={props.navigation} />
+              </>
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="thongbao">
-            {(props) => <Notification navigation={props.navigation} />}
+            {(props) => (
+              <>
+                <Load />
+                <Notification navigation={props.navigation} />
+              </>
+            )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="chuyentien">
             {(props) => <CTPage navigation={props.navigation} />}
@@ -111,31 +126,40 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="xacnhan">
             {(props) => (
-              <XNPage
-                navigation={props.navigation}
-                balance={accountInfo.balance}
-                name={accountInfo.name}
-              />
+              <>
+                <Load />
+                <XNPage
+                  navigation={props.navigation}
+                  balance={accountInfo.balance}
+                  name={accountInfo.name}
+                />
+              </>
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="chuyentiendenvi">
             {(props) => (
-              <CTDenViPage
-                navigation={props.navigation}
-                balance={accountInfo.balance}
-                name={accountInfo.name}
-              />
+              <>
+                <Load />
+                <CTDenViPage
+                  navigation={props.navigation}
+                  balance={accountInfo.balance}
+                  name={accountInfo.name}
+                />
+              </>
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="menu">
             {(props) => (
-              <MenuScreen
-                navigation={props.navigation}
-                balance={accountInfo.balance}
-                loggedIn={loggedIn}
-                name={accountInfo.name}
-                setLogin={setLogin}
-              />
+              <>
+                <Load />
+                <MenuScreen
+                  navigation={props.navigation}
+                  balance={accountInfo.balance}
+                  loggedIn={loggedIn}
+                  name={accountInfo.name}
+                  setLogin={setLogin}
+                />
+              </>
             )}
           </Stack.Screen>
         </Stack.Navigator>
