@@ -32,7 +32,10 @@ export default function CTHeader(props) {
         </View>
       </View>
 
-      <View style={styles.headerCT_Balance}>
+      <View
+        onStartShouldSetResponder={props.chuyentiendenvi}
+        style={styles.headerCT_Balance}
+      >
         <Image
           source={require("../assets/Vnpay_Logo.png")}
           style={styles.icon}

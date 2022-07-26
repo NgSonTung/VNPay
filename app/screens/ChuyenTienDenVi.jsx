@@ -19,13 +19,14 @@ import CTDenViMain from "../components/CTDenViMain";
 import CTDenViFooter from "../components/CTDenViFooter";
 
 export default function CTDenViPage(props) {
+  const xacnhan = () => {
+    props.navigation.navigate("xacnhan");
+  };
   return (
     <View>
-      <CTDenViHeader />
-      <CTDenViMain 
-        name={props.name}
-      />
-      <CTDenViFooter />
+      <CTDenViHeader navigation={props.navigation} />
+      <CTDenViMain name={props.name} />
+      <CTDenViFooter xacnhan={xacnhan} navigation={props.navigation} />
     </View>
   );
 }

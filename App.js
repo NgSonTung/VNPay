@@ -12,21 +12,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState, useEffect, useRef } from "react";
 import MyQrScreen from "./app/screens/MyQrScreen";
+import MenuScreen from "./app/screens/MenuScreen";
 import ViGD from "./app/screens/ViGDScreen";
 import { log } from "react-native-reanimated";
 import { initDB } from "./firebase";
 import { getData } from "./firebase";
-import { 
-  View, 
-  ActivityIndicator, 
-} from "react-native";
+import { View, ActivityIndicator } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  
   initDB(); //init database
-  
+
   // STATE
   const [accountInfo, setAccountInfo] = useState();
   const [loggedIn, setLogin] = useState(false);
@@ -48,12 +45,17 @@ export default function App() {
     setAccountInfo(array[0]);
   };
 
-
-  if (isLoading) return <Image source={require("./app/assets/logo1.png")} style={{height: 250, width: 250, marginLeft: 80, marginTop: 220}}/>;
+  if (isLoading)
+    return (
+      <Image
+        source={require("./app/assets/logo1.png")}
+        style={{ height: 250, width: 250, marginLeft: 80, marginTop: 220 }}
+      />
+    );
   else
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="chuyentiendenvi">
+        <Stack.Navigator initialRouteName="home">
           <Stack.Screen options={{ headerShown: false }} name="home">
             {(props) => (
               <HomeScreen
@@ -64,25 +66,36 @@ export default function App() {
               />
             )}
           </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="login" >
+          <Stack.Screen options={{ headerShown: false }} name="menu">
+            {(props) => (
+              <MenuScreen
+                navigation={props.navigation}
+                balance={accountInfo.balance}
+                loggedIn={loggedIn}
+                name={accountInfo.name}
+                setLogin={setLogin}
+              />
+            )}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="login">
             {(props) => (
               <LoginScreen
-                  navigation={props.navigation}
-                  number={accountInfo.number}
-                  password={accountInfo.password}
-                  setLogin={setLogin}
-                   />
+                navigation={props.navigation}
+                number={accountInfo.number}
+                password={accountInfo.password}
+                setLogin={setLogin}
+              />
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="naptien">
             {(props) => (
-            <NTHead 
-              navigation={props.navigation} 
-              balance={accountInfo.balance}
-            />
+              <NTHead
+                navigation={props.navigation}
+                balance={accountInfo.balance}
+              />
             )}
           </Stack.Screen>
-          
+
           <Stack.Screen options={{ headerShown: false }} name="myQR">
             {(props) => (
               <MyQrScreen
@@ -108,23 +121,25 @@ export default function App() {
             {(props) => <Gift navigation={props.navigation} />}
           </Stack.Screen>
 
-          {/* <Stack.Screen options={{ headerShown: false }} name="xacnhan">
+          <Stack.Screen options={{ headerShown: false }} name="xacnhan">
             {(props) => (
-            <XNPage 
-              navigation={props.navigation} 
-              balance={accountInfo.balance}
-              name={accountInfo.name}
-            /> */}
-
-          {/* <Stack.Screen options={{ headerShown: false }} name="chuyentiendenvi">
-            {(props) => (
-              <CTDenViPage
-              navigation={props.navigation} 
-              balance={accountInfo.balance}
-              name={accountInfo.name}
+              <XNPage
+                navigation={props.navigation}
+                balance={accountInfo.balance}
+                name={accountInfo.name}
               />
             )}
-          </Stack.Screen> */}
+          </Stack.Screen>
+
+          <Stack.Screen options={{ headerShown: false }} name="chuyentiendenvi">
+            {(props) => (
+              <CTDenViPage
+                navigation={props.navigation}
+                balance={accountInfo.balance}
+                name={accountInfo.name}
+              />
+            )}
+          </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -140,12 +155,12 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: "center",
   },
-   logo: {
+  logo: {
     width: 60,
     height: 60,
     marginLeft: 175,
     marginTop: -70,
     backgroundColor: "white",
-    borderRadius: 50
-   }
+    borderRadius: 50,
+  },
 });

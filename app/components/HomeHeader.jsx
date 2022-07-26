@@ -30,7 +30,9 @@ const HomeHeader = (props) => {
   const loggedIn = (props) => {
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
-        <Text style={styles.greet}>{props.name}</Text>
+        <Text style={[styles.greet, { textTransform: "uppercase" }]}>
+          {props.name}
+        </Text>
         <View style={{ flex: 1, flexDirection: "row" }}>
           <Text style={styles.balance}>Số dư (VND):</Text>
           <Text style={styles.balanceValue}>
@@ -75,20 +77,11 @@ const HomeHeader = (props) => {
   };
 
   return (
-    <Animated.View
-      style={[
-        styles.header,
-        // {
-        //   zIndex: props.scrollY.interpolate({
-        //     inputRange: [0, 250, 250.2],
-        //     outputRange: [10, 0, 5],
-        //   }),
-        // },
-      ]}
-    >
+    <Animated.View style={[styles.header]}>
       <Animated.View style={styles.animatedView}>
         <Animated.View style={[styles.iconCont, animation.menu]}>
           <Image
+            onStartShouldSetResponder={props.menu}
             style={styles.avatarIcon}
             source={require("../assets/avatar2.png")}
           />
@@ -121,7 +114,10 @@ const HomeHeader = (props) => {
             <Image style={styles.icon} source={require("../assets/myQR.png")} />
           </View>
         </Animated.View>
-        <Animated.View style={animation.transform}>
+        <Animated.View
+          style={animation.transform}
+          onStartShouldSetResponder={props.menu}
+        >
           <Image
             style={[styles.avatar]}
             source={require("../assets/avatar2.png")}

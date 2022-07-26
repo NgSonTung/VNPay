@@ -17,11 +17,11 @@ import NTMain from "../components/NTMain";
 export default function NTHead(props) {
   return (
     <View>
-      <NTHeader 
-        goBack={props.navigation.goBack} 
+      <NTHeader
+        goBack={props.navigation.goBack}
         //balance={props.accountInfo.balance}
         balance={props.balance}
-        />
+      />
       <NTMain />
     </View>
   );

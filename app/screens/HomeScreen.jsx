@@ -71,7 +71,11 @@ export default function HomeScreen(props) {
       props.navigation.navigate("login");
     }
   };
-
+  const menu = () => {
+    if (props.loggedIn == false) {
+      props.navigation.navigate("menu");
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       {/* main */}
@@ -115,6 +119,7 @@ export default function HomeScreen(props) {
           myQR={myQR}
           viGD={viGD}
           chuyenTien={chuyenTien}
+          menu={menu}
         />
         <BannerSlider />
         <SmallMenu

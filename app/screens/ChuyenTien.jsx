@@ -20,9 +20,16 @@ import Searchbar1 from "../components/Searchbar1.jsx";
 import Searchbar from "../components/Searchbar";
 
 export default function CTPage(props) {
+  const chuyentiendenvi = () => {
+    props.navigation.navigate("chuyentiendenvi");
+  };
+
   return (
     <View style={styles.container}>
-      <CTHeader navigation={props.navigation} />
+      <CTHeader
+        chuyentiendenvi={chuyentiendenvi}
+        navigation={props.navigation}
+      />
       <Searchbar1 />
       {/* <NavigationContainer> */}
       <Tabs />
