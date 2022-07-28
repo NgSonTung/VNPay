@@ -69,7 +69,7 @@ const MenuScreen = (props) => {
               {" "}
               {!hidePassword
                 ? `(VND) ${currencyFormat(props.balance)}`
-                : "********"}
+                : "(VND) ********"}
             </Text>
           </View>
         </View>

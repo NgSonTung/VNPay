@@ -114,7 +114,7 @@ const Gift = (props) => {
         </View>
         <View style={styles.navMenu}>
           <View
-            style={[styles.navCont, styles.home]}
+            style={[styles.navCont, styles.home, { opacity: 0.6 }]}
             onStartShouldSetResponder={home}
           >
             <Entypo
@@ -126,7 +126,7 @@ const Gift = (props) => {
             <Text style={[styles.navDesc, styles.navIcons]}>Trang chủ</Text>
           </View>
           <View
-            style={[styles.navCont, styles.notif]}
+            style={[styles.navCont, styles.notif, { opacity: 0.6 }]}
             onStartShouldSetResponder={notification}
           >
             <MaterialIcons
@@ -142,7 +142,7 @@ const Gift = (props) => {
             style={styles.qrLogo}
             source={require("../assets/logoQR.png")}
           />
-          <View style={[styles.navCont, styles.shop]}>
+          <View style={[styles.navCont, styles.shop, { opacity: 0.6 }]}>
             <Feather
               name="shopping-cart"
               size={24}

@@ -1,4 +1,5 @@
 import firebase from "firebase/compat/app";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 import "firebase/compat/firestore";
 import "firebase/compat/database";
 import "firebase/compat/storage";
@@ -27,20 +28,16 @@ export function initDB() {
   }
 }
 
-export function addData(number) {
-  firebase
-    .database()
-    .ref("users/" + number)
-    .set({
-      Number: number,
-    }),
-    function () {
-      if (error) {
-        //loi
-      } else {
-        //thanh cong
-      }
-    };
+export function updateBalance(user, newBalance, data) {
+  const db = getDatabase();
+  return new Promise((resolve, reject) => {
+    set(ref(db, "users/" + user), {
+      Password: data.password,
+      Number: data.number,
+      Balance: newBalance,
+      Name: data.name,
+    });
+  });
 }
 
 export function getData() {
@@ -48,7 +45,7 @@ export function getData() {
     firebase
       .database()
       .ref("users")
-      .once("value", (snapshot) => {
+      .on("value", (snapshot) => {
         const array = [];
         snapshot.forEach(function (child) {
           var user = child.val();
@@ -60,6 +57,7 @@ export function getData() {
             name: user.Name,
           });
         });
+        console.log(array);
         resolve(array);
         reject([]);
       });

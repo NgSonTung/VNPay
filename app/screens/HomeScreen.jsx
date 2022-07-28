@@ -7,6 +7,8 @@ import {
   StatusBar,
   Animated,
   StyleSheet,
+  Button,
+  Text,
 } from "react-native";
 import { useSharedValue, useAnimatedStyle } from "react-native-reanimated";
 import BannerSlider from "../components/BannerSlider.jsx";
@@ -16,6 +18,7 @@ import SmallMenu from "../components/SmallMenu.jsx";
 import HomeHeader from "../components/HomeHeader.jsx";
 import HomeFooter from "../components/HomeFooter.jsx";
 import Load from "../components/Load";
+import { updateBalance } from "../../firebase";
 
 export default function HomeScreen(props) {
   const [eyeOn, setEye] = useState(false);
@@ -73,8 +76,10 @@ export default function HomeScreen(props) {
     }
   };
   const menu = () => {
-    if (props.loggedIn == false) {
+    if (props.loggedIn) props.navigation.navigate("menu");
+    else {
       props.navigation.navigate("menu");
+      props.navigation.navigate("login");
     }
   };
   return (
