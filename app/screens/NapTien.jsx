@@ -15,6 +15,10 @@ import NTHeader from "../components/NTHeader";
 import NTMain from "../components/NTMain";
 
 export default function NTHead(props) {
+  const xacnhanNT = () => {
+    props.navigation.navigate("xacnhanNT");
+  };
+
   return (
     <View>
       <NTHeader
@@ -22,7 +26,10 @@ export default function NTHead(props) {
         //balance={props.accountInfo.balance}
         balance={props.balance}
       />
-      <NTMain />
+      <NTMain 
+        xacnhanNT={xacnhanNT}
+        navigation={props.navigation}
+      />
     </View>
   );
 }

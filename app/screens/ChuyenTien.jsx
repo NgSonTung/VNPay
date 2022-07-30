@@ -18,6 +18,7 @@ import CTHeader from "../components/CTHeader";
 import Tabs from "../components/CTMain";
 import Searchbar1 from "../components/Searchbar1.jsx";
 import Searchbar from "../components/Searchbar";
+import CTFooter from "../components/CTFooter";
 
 export default function CTPage(props) {
   const chuyentiendenvi = () => {
@@ -34,6 +35,7 @@ export default function CTPage(props) {
       {/* <NavigationContainer> */}
       <Tabs />
       {/* </NavigationContainer> */}
+      <CTFooter />
     </View>
   );
 }

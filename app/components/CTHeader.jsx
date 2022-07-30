@@ -37,7 +37,7 @@ export default function CTHeader(props) {
         style={styles.headerCT_Balance}
       >
         <Image
-          source={require("../assets/Vnpay_Logo.png")}
+          source={require("../assets/294914316_572167637917980_817880081073609575_n.jpg")}
           style={styles.icon}
         />
         <View>

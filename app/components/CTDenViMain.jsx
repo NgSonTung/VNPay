@@ -24,7 +24,7 @@ export default function CTDenViMain({name}){
         <View style={styles.mainNT_Conteiner}>
             <View style={styles.mainNT_InputBox_Top}>
               <View style={styles.mainNT_InputBox_SDT}>
-                  <Ionicons name="cash" size={30} color="black"style={styles.mainNT_InputBox_IconMoney}/>
+                  <Ionicons name="cash" size={30} color="#469cd8"style={styles.mainNT_InputBox_IconMoney}/>
                     <TextInput 
                         placeholder="Nhập số điện thoại" 
                         style={styles.mainNT_Input_Placeholder}
@@ -37,7 +37,7 @@ export default function CTDenViMain({name}){
             </View>
 
             <View style={styles.mainNT_InputBox_Bottom}>
-                <MaterialIcons name="message" size={30} color="black" style={styles.mainNT_InputBox_Icon}/>
+                <MaterialIcons name="message" size={30} color="#469cd8" style={styles.mainNT_InputBox_Icon}/>
                 <View style={styles.mainNT_InputBox_Message}>
                     <Text>Nội dung</Text>
                     <TextInput 
@@ -50,7 +50,7 @@ export default function CTDenViMain({name}){
 
         <View style={styles.mainNT_Conteiner_Middle}>
             <View style={styles.mainNT_InputBox_Money}>
-            <MaterialCommunityIcons name="hand-coin" size={24} color="black" style={styles.mainNT_InputBox_IconCoin} /> 
+            <MaterialCommunityIcons name="hand-coin" size={24} color="#469cd8" style={styles.mainNT_InputBox_IconCoin} /> 
               <TextInput 
                   placeholder="Số tiền (VND)" 
                   style={styles.mainNT_Input_Placeholder}

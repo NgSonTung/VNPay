@@ -19,13 +19,6 @@ export default function NTMain(props) {
 
   const [click, setClick] = React.useState(false);
 
-  function checkBlank() {
-    if (moneyInput.trim() && moneyInput != 0) {
-      console.log("pressed");
-    } else {
-      alert("Số tiền không hợp lệ");
-    }
-  }
 
   return (
     <View>
@@ -46,7 +39,7 @@ export default function NTMain(props) {
 
           <View style={styles.mainNT_Input}>
             <View style={styles.mainNT_InputBox}>
-              <Ionicons name="cash" size={24} color="black" />
+              <Ionicons name="cash" size={24} color="#469cd8" />
               <TextInput
                 placeholder="Số tiền nạp (VND)"
                 style={styles.mainNT_Input_Placeholder}
@@ -56,7 +49,7 @@ export default function NTMain(props) {
             </View>
             <View style={styles.mainNT_Input_Question}>
               <Text> Hạn mức </Text>
-              <AntDesign name="questioncircle" size={24} color="black" />
+              <AntDesign name="questioncircle" size={24} color="#469cd8" />
             </View>
           </View>
 
@@ -79,7 +72,7 @@ export default function NTMain(props) {
               <View style={styles.navCont}>
                 <Image
                   style={styles.barIcons}
-                  source={require("../assets/TPBank_Logo.png")}
+                  source={require("../assets/1658936868505.png")}
                 />
                 <Text style={styles.barDesc}>VIETCOMBANK</Text>
               </View>
@@ -87,7 +80,7 @@ export default function NTMain(props) {
               <View style={styles.navCont}>
                 <Image
                   style={styles.barIcons}
-                  source={require("../assets/TPBank_Logo.png")}
+                  source={require("../assets/1659170745833.png")}
                 />
                 <Text style={styles.barDesc}>AGRIBANK</Text>
               </View>
@@ -95,7 +88,7 @@ export default function NTMain(props) {
               <View style={styles.navCont}>
                 <Image
                   style={styles.barIcons}
-                  source={require("../assets/TPBank_Logo.png")}
+                  source={require("../assets/1658936901832.png")}
                 />
                 <Text style={styles.barDesc}>VIETTINBANK</Text>
               </View>
@@ -103,7 +96,7 @@ export default function NTMain(props) {
               <View style={styles.navCont}>
                 <Image
                   style={styles.barIcons}
-                  source={require("../assets/TPBank_Logo.png")}
+                  source={require("../assets/1658936953353.png")}
                 />
                 <Text style={styles.barDesc}>BIDV</Text>
               </View>
@@ -113,15 +106,15 @@ export default function NTMain(props) {
               <View style={styles.navCont}>
                 <Image
                   style={styles.barIcons}
-                  source={require("../assets/TPBank_Logo.png")}
+                  source={require("../assets/1659170763104.png")}
                 />
-                <Text style={styles.barDesc}>MBBANK</Text>
+                <Text style={styles.barDesc}>SHB</Text>
               </View>
 
               <View style={styles.navCont}>
                 <Image
                   style={styles.barIcons}
-                  source={require("../assets/TPBank_Logo.png")}
+                  source={require("../assets/1659170777888.png")}
                 />
                 <Text style={styles.barDesc}>SACOMBANK</Text>
               </View>
@@ -129,15 +122,15 @@ export default function NTMain(props) {
               <View style={styles.navCont}>
                 <Image
                   style={styles.barIcons}
-                  source={require("../assets/TPBank_Logo.png")}
+                  source={require("../assets/1659170791708.png")}
                 />
-                <Text style={styles.barDesc}>TECHCOMBANK</Text>
+                <Text style={styles.barDesc}>MSB</Text>
               </View>
 
               <View style={styles.navCont}>
                 <Image
                   style={styles.barIcons}
-                  source={require("../assets/TPBank_Logo.png")}
+                  source={require("../assets/1659170791708.png")}
                 />
                 <Text style={styles.barDesc}>Nạp tiền điện thoại</Text>
               </View>
@@ -146,10 +139,11 @@ export default function NTMain(props) {
         </ScrollView>
       </View>
 
-      <View style={styles.submit}>
-        <Pressable onPress={checkBlank} disabled={click}>
+      <View 
+        style={styles.submit}
+        onStartShouldSetResponder={ moneyInput.trim()  ? props.xacnhanNT : console.log("Error")} 
+      >
           <Text style={styles.submitText}>Tiếp tục</Text>
-        </Pressable>
       </View>
     </View>
   );

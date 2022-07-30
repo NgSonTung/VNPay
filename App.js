@@ -103,6 +103,18 @@ export default function App() {
               </>
             )}
           </Stack.Screen>
+          <Stack.Screen options={{ headerShown: false }} name="xacnhanNT">
+            {(props) => (
+              <>
+                <Load />
+                <XNPage
+                  navigation={props.navigation}
+                  balance={accountInfo.balance}
+                  name={accountInfo.name}
+                />
+              </>
+            )}
+          </Stack.Screen>
 
           <Stack.Screen options={{ headerShown: false }} name="myQR">
             {(props) => (
