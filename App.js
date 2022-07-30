@@ -55,7 +55,7 @@ export default function App() {
     );
   else
     return (
-      <NavigationContainer>
+      <><NavigationContainer>
         <Stack.Navigator initialRouteName="home">
           <Stack.Screen options={{ headerShown: false }} name="home">
             {(props) => (
@@ -63,8 +63,7 @@ export default function App() {
                 navigation={props.navigation}
                 balance={accountInfo.balance}
                 loggedIn={loggedIn}
-                name={accountInfo.name}
-              />
+                name={accountInfo.name} />
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="login">
@@ -73,8 +72,7 @@ export default function App() {
                 navigation={props.navigation}
                 number={accountInfo.number}
                 password={accountInfo.password}
-                setLogin={setLogin}
-              />
+                setLogin={setLogin} />
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="naptien">
@@ -83,8 +81,7 @@ export default function App() {
                 <Load />
                 <NTHead
                   navigation={props.navigation}
-                  balance={accountInfo.balance}
-                />
+                  balance={accountInfo.balance} />
               </>
             )}
           </Stack.Screen>
@@ -97,8 +94,7 @@ export default function App() {
                   navigation={props.navigation}
                   balance={accountInfo.balance}
                   name={accountInfo.name}
-                  loggedIn={loggedIn}
-                />
+                  loggedIn={loggedIn} />
               </>
             )}
           </Stack.Screen>
@@ -119,10 +115,19 @@ export default function App() {
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="chuyentien">
-            {(props) => <CTPage navigation={props.navigation} />}
+            {(props) => (
+              <>
+                <Load />
+                <CTPage navigation={props.navigation} />
+              </>
+            )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="qua">
-            {(props) => <Gift navigation={props.navigation} />}
+            {(props) => (
+              <>
+                <Load />
+                <Gift navigation={props.navigation} />
+              </>)}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="xacnhan">
             {(props) => (
@@ -131,8 +136,7 @@ export default function App() {
                 <XNPage
                   navigation={props.navigation}
                   balance={accountInfo.balance}
-                  name={accountInfo.name}
-                />
+                  name={accountInfo.name} />
               </>
             )}
           </Stack.Screen>
@@ -143,8 +147,7 @@ export default function App() {
                 <CTDenViPage
                   navigation={props.navigation}
                   balance={accountInfo.balance}
-                  name={accountInfo.name}
-                />
+                  name={accountInfo.name} />
               </>
             )}
           </Stack.Screen>
@@ -157,13 +160,12 @@ export default function App() {
                   balance={accountInfo.balance}
                   loggedIn={loggedIn}
                   name={accountInfo.name}
-                  setLogin={setLogin}
-                />
+                  setLogin={setLogin} />
               </>
             )}
           </Stack.Screen>
         </Stack.Navigator>
-      </NavigationContainer>
+      </NavigationContainer><Load /></>
     );
 }
 const styles = StyleSheet.create({
