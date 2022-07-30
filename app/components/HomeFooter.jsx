@@ -40,7 +40,7 @@ const HomeFooter = (props) => {
         </View>
         <View
           onStartShouldSetResponder={props.notification}
-          style={[styles.navCont, styles.notif]}
+          style={[styles.navCont, styles.notif, { opacity: 0.6 }]}
         >
           <MaterialIcons
             name="mail-outline"
@@ -55,7 +55,7 @@ const HomeFooter = (props) => {
           style={styles.qrLogo}
           source={require("../assets/logoQR.png")}
         />
-        <View style={[styles.navCont, styles.shop]}>
+        <View style={[styles.navCont, styles.shop, { opacity: 0.6 }]}>
           <Feather
             name="shopping-cart"
             size={24}
@@ -65,7 +65,7 @@ const HomeFooter = (props) => {
           <Text style={[styles.navDesc, styles.navIcons]}>Mua sắm</Text>
         </View>
         <View
-          style={[styles.navCont, styles.gift]}
+          style={[styles.navCont, styles.gift, { opacity: 0.6 }]}
           onStartShouldSetResponder={props.quaTang}
         >
           <SimpleLineIcons

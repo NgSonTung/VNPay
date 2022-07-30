@@ -14,11 +14,11 @@ import React, { useState, useEffect, useRef } from "react";
 import MyQrScreen from "./app/screens/MyQrScreen";
 import MenuScreen from "./app/screens/MenuScreen";
 import ViGD from "./app/screens/ViGDScreen";
-import { log } from "react-native-reanimated";
 import { initDB } from "./firebase";
 import { getData } from "./firebase";
-import { View, ActivityIndicator } from "react-native";
 import Load from "./app/components/Load";
+import "firebase/compat/database";
+import firebase from "firebase/compat/app";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,8 +42,24 @@ export default function App() {
   }, [accountInfo]);
 
   const getAccountInfo = async () => {
-    const array = await getData();
-    setAccountInfo(array[0]);
+    // const array = await getData();
+    firebase
+      .database()
+      .ref("users")
+      .on("value", (snapshot) => {
+        const array = [];
+        snapshot.forEach(function (child) {
+          var user = child.val();
+          array.push({
+            id: child.key,
+            password: user.Password,
+            number: user.Number,
+            balance: user.Balance,
+            name: user.Name,
+          });
+        });
+        setAccountInfo(array[0]);
+      });
   };
 
   if (isLoading)
@@ -63,7 +79,9 @@ export default function App() {
                 navigation={props.navigation}
                 balance={accountInfo.balance}
                 loggedIn={loggedIn}
-                name={accountInfo.name} />
+                name={accountInfo.name}
+                accountInfo={accountInfo}
+              />
             )}
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="login">

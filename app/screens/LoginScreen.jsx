@@ -25,7 +25,7 @@ const LoginScreen = (props) => {
 
   const login = () => {
     Keyboard.dismiss();
-    if (tempPassword == props.password) {
+    if (tempPassword.toString() == props.password) {
       props.setLogin(true);
       props.navigation.goBack();
     } else {
