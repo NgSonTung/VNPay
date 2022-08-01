@@ -20,6 +20,7 @@ const Tab = createMaterialTopTabNavigator();
 function Giaodichganday() {
   return (
     <View style={styles.TextContainer}>
+            <Searchbar1 />
       <Text style={styles.TextTab}>Quý khách chưa có giao dịch nào gần đây</Text>
     </View>
   );
@@ -27,6 +28,7 @@ function Giaodichganday() {
 function DanhBa() {
   return (
     <View>
+            <Searchbar1 />
       <Text style={styles.TextTab}>Quý khách chưa có bạn bè nào được lưu trong danh sách thụ hưởng</Text>
     </View>
   );

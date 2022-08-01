@@ -25,8 +25,12 @@ export default function CTDenViPage(props) {
   return (
     <View>
       <CTDenViHeader navigation={props.navigation} />
-      <CTDenViMain name={props.name} />
-      <CTDenViFooter xacnhan={xacnhan} navigation={props.navigation} />
+      <CTDenViMain 
+      name={props.name} 
+      xacnhan={xacnhan} 
+      navigation={props.navigation}
+      />
+      {/* <CTDenViFooter xacnhan={xacnhan} navigation={props.navigation} /> */}
     </View>
   );
 }

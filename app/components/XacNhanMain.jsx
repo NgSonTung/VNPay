@@ -16,7 +16,7 @@ export default function XNMain(props){
                 </View>
                 <View style={styles.mainXN_Container_SetThree}>
                     <Text style={styles.mainXN_Info_Title}>Tên tài khoản/Thẻ nạp</Text>                  
-                    <Text style={styles.mainXN_Info}>{props.moneyInput}</Text>         
+                    <Text style={styles.mainXN_Info}>{props.name}</Text>         
                 </View>
                 <Text style={styles.Border}></Text>
             </View>

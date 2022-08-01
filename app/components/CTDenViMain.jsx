@@ -17,8 +17,24 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useFormik } from "formik";
+import * as yup from "yup";
 
-export default function CTDenViMain({name}){
+
+export default function CTDenViMain(props){
+
+  const formik = useFormik({
+    initialValues:{
+      number: "",
+      message: "",
+      amount: "",
+    },
+    validationSchema: yup.object({
+      number: yup.string().min(10).max(10).required(),
+      message: yup.string().max(30).required(),
+      amount: yup.string().min(5).required(),
+    }),
+  })
     return(
       <View style={styles.mainNT_BGC}>
         <View style={styles.mainNT_Conteiner}>
@@ -29,6 +45,10 @@ export default function CTDenViMain({name}){
                         placeholder="Nhập số điện thoại" 
                         style={styles.mainNT_Input_Placeholder}
                         keyboardType= 'decimal-pad'
+                        name="number"
+                        defaultValue=""
+                        value={formik.values.number}
+                        onChangeText={formik.handleChange("number")}
                     />
               </View>
               <View>
@@ -43,6 +63,11 @@ export default function CTDenViMain({name}){
                     <TextInput 
                         placeholder= "Text"
                         style={styles.mainNT_Input_Placeholder}
+                        name="message"
+                        defaultValue=""
+                        value={formik.values.message}
+                        onChangeText={formik.handleChange("message")}
+
                     />
                 </View>
             </View>
@@ -55,19 +80,39 @@ export default function CTDenViMain({name}){
                   placeholder="Số tiền (VND)" 
                   style={styles.mainNT_Input_Placeholder}
                   keyboardType= 'decimal-pad'
-              />
+                  name="amount"
+                  defaultValue=""
+                  value={formik.values.amount}
+                  onChangeText={formik.handleChange("amount")}
+                  />
             </View>
         </View>
 
         <View style={styles.mainNT_Conteiner_Bottom}>
             <Text style={styles.mainNT_Text}>Danh Sách Nhận Tiền (0/10)</Text>
         </View>
+
+        <View style={styles.CTDV_Container_BTN}>
+          <Text></Text>
+            <View style={styles.add}>
+              <Text style={styles.add_Button}>+ Thêm người nhận</Text>
+            </View>
+            <View style={styles.submit}
+                    onStartShouldSetResponder={formik.errors.message && formik.errors.number && formik.errors.amount ? console.log("error") : props.xacnhan } 
+            >
+              <Text style={styles.submit_Button}>Tiếp tục</Text>
+            </View>
+        </View>
+
       </View>
     )
 }
 
 
 const styles = StyleSheet.create({
+  mainNT_BGC:{
+    backgroundColor: 'white'
+  },
   mainNT_Conteiner:{
     borderBottomColor: '#f7f6f6',
     borderBottomWidth: 10,
@@ -133,8 +178,52 @@ mainNT_Text:{
   marginTop: 15,
   marginBottom: 15,
   color: 'grey',
-}
+},
 
+CTDV_Container_BTN: {
+  height: 350,
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "flex-end",
+},
+add: {
+  flexDirection: "row",
+  justifyContent: "center",
+  alignContent: "center",
+  paddingTop: 10,
+  paddingBottom: 10,
+  width: 180,
+  backgroundColor: "white",
+  borderColor: "#255aa4",
+  borderWidth: 2,
+  borderRadius: 25,
+  marginTop: 10,
+  marginLeft: 10,
+  marginRight: 10,
+
+},
+submit: {
+  flexDirection: "row",
+  justifyContent: "center",
+  alignContent: "center",
+  paddingTop: 10,
+  paddingBottom: 10,
+  width: 180,
+  backgroundColor: "#255aa4",
+  borderColor: "#255aa4",
+  borderWidth: 2,
+  borderRadius: 25,
+  marginTop: 10,
+  marginRight: 15,
+  marginLeft: 10,
+
+},
+submit_Button: {
+  color: "white",
+},
+add_Button: {
+  color: "#255aa4",
+},
 
 
 

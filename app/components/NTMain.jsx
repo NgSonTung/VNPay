@@ -13,12 +13,18 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 
 export default function NTMain(props) {
   const [moneyInput, setAmount] = React.useState("");
-
-  const [click, setClick] = React.useState(false);
-
+  const formik = useFormik({
+    initialValues:{SoTien: ""},
+    validationSchema: yup.object({
+      SoTien: yup.string().min(5, "Số tiền nạp tối thiểu là 10000VNĐ").required()
+    }),
+  })
 
   return (
     <View>
@@ -42,9 +48,13 @@ export default function NTMain(props) {
               <Ionicons name="cash" size={24} color="#469cd8" />
               <TextInput
                 placeholder="Số tiền nạp (VND)"
+                name= "SoTien"
+                id="SoTien"
                 style={styles.mainNT_Input_Placeholder}
                 keyboardType="decimal-pad"
-                onChangeText={(value) => setAmount(value)}
+                defaultValue=""
+                value={formik.values.SoTien}
+                onChangeText={formik.handleChange("SoTien")}
               />
             </View>
             <View style={styles.mainNT_Input_Question}>
@@ -141,7 +151,7 @@ export default function NTMain(props) {
 
       <View 
         style={styles.submit}
-        onStartShouldSetResponder={ moneyInput.trim()  ? props.xacnhanNT : console.log("Error")} 
+        onStartShouldSetResponder={formik.errors.SoTien ? console.log("error") : props.xacnhanNT } 
       >
           <Text style={styles.submitText}>Tiếp tục</Text>
       </View>

@@ -31,7 +31,6 @@ export default function CTPage(props) {
         chuyentiendenvi={chuyentiendenvi}
         navigation={props.navigation}
       />
-      <Searchbar1 />
       {/* <NavigationContainer> */}
       <Tabs />
       {/* </NavigationContainer> */}
