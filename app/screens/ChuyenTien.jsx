@@ -35,6 +35,7 @@ export default function CTPage(props) {
       <Tabs />
       {/* </NavigationContainer> */}
       <CTFooter />
+      <StatusBar style={"auto"} />
     </View>
   );
 }

@@ -22,12 +22,15 @@ const LoginScreen = (props) => {
   const [inputIsRight, checkInput] = useState("");
   const [loginStep, setLoginStep] = useState(1);
   const [hidePassword, setHidePassword] = useState("true");
+  const numberList = props.accountList.map((account) => account.number);
+  const [accountInfo, setAccountInfo] = useState();
+  const [updated, setUpdate] = useState(false);
 
   const login = () => {
     Keyboard.dismiss();
-    if (tempPassword.toString() == props.password) {
+    if (tempPassword.toString() === props.password) {
       props.setLogin(true);
-      props.navigation.goBack();
+      props.navigation.navigate("home");
     } else {
       Alert.alert(
         "Thông báo",
@@ -38,15 +41,51 @@ const LoginScreen = (props) => {
     }
   };
 
+  useEffect(() => {
+    typeof accountInfo !== "undefined"
+      ? props.setAccountInfo(accountInfo)
+      : null;
+  }, [accountInfo]);
+
+  useEffect(() => {
+    typeof accountInfo !== "undefined"
+      ? props.setAccountInfo(accountInfo)
+      : null;
+  }, []);
+
+  // useEffect(() => {
+  //   props.loggedIn && typeof props.accountInfo !== "undefined"
+  //     ? props.navigation.navigate("home")
+  //     : null;
+  // }, [props.accountInfo, props.loggedIn]);
+
+  const getNewAccountInfo = async () => {
+    let newAccount;
+    new Promise((resolve, reject) => {
+      newAccount = props.accountList.find((account) => {
+        return account.number.trim() === tempNo.toString().trim();
+      });
+      resolve(newAccount);
+    }).then((value) => setAccountInfo(value));
+  };
+
   const handleSubmit = () => {
     let rightNumber = false;
     Keyboard.dismiss();
-    tempNo === props.number ? (rightNumber = true) : null;
+    numberList.forEach((number) => {
+      tempNo === number ? (rightNumber = true) : null;
+    });
+    // tempNo === props.number ? (rightNumber = true) : null;
     if (tempNo.length == 0) {
       checkInput("thieu");
     } else if (!tempNo.startsWith("09", 0) | isNaN(tempNo)) checkInput("sai");
     else if (tempNo.length == 10 && rightNumber) {
       setLoginStep(2);
+      // const newAccountInfo = await getNewAccountInfo();
+      // props.setAccountInfo(
+      //   newAccountInfo
+      // );
+      getNewAccountInfo();
       checkInput("dung");
     } else {
       checkInput("sai");

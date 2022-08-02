@@ -26,9 +26,17 @@ export default function App() {
   initDB(); //init database
 
   // STATE
-  const [accountInfo, setAccountInfo] = useState();
+  const [accountInfo, setAccountInfo] = useState({
+    name: "",
+    password: "",
+    balance: "",
+    number: "",
+  });
+  const [accountList, setAccountList] = useState();
   const [loggedIn, setLogin] = useState(false);
   const [isLoading, setLoading] = useState(true);
+  const [sendAmount, setAmount] = useState();
+  const [receiver, setReceiver] = useState();
 
   //FUNCTIONS
   useEffect(() => {
@@ -37,9 +45,15 @@ export default function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      typeof accountInfo !== "undefined" ? setLoading(false) : null;
+      typeof accountList !== "undefined" ? setLoading(false) : null;
     }, 1000);
-  }, [accountInfo]);
+    if (typeof accountList !== "undefined") {
+      let acc = accountList.find((account) => {
+        return account.number === accountInfo.number;
+      });
+      typeof acc !== "undefined" ? setAccountInfo(acc) : null;
+    }
+  }, [accountList]);
 
   const getAccountInfo = async () => {
     // const array = await getData();
@@ -58,7 +72,7 @@ export default function App() {
             name: user.Name,
           });
         });
-        setAccountInfo(array[0]);
+        setAccountList(array);
       });
   };
 
@@ -71,131 +85,157 @@ export default function App() {
     );
   else
     return (
-      <><NavigationContainer>
-        <Stack.Navigator initialRouteName="home">
-          <Stack.Screen options={{ headerShown: false }} name="home">
-            {(props) => (
-              <HomeScreen
-                navigation={props.navigation}
-                balance={accountInfo.balance}
-                loggedIn={loggedIn}
-                name={accountInfo.name}
-                accountInfo={accountInfo}
-              />
-            )}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="login">
-            {(props) => (
-              <LoginScreen
-                navigation={props.navigation}
-                number={accountInfo.number}
-                password={accountInfo.password}
-                setLogin={setLogin} />
-            )}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="naptien">
-            {(props) => (
-              <>
-                <Load />
-                <NTHead
-                  navigation={props.navigation}
-                  balance={accountInfo.balance} />
-              </>
-            )}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="xacnhanNT">
-            {(props) => (
-              <>
-                <Load />
-                <XNPage
-                  navigation={props.navigation}
-                  balance={accountInfo.balance}
-                  name={accountInfo.name}
-                />
-              </>
-            )}
-          </Stack.Screen>
-
-          <Stack.Screen options={{ headerShown: false }} name="myQR">
-            {(props) => (
-              <>
-                <Load />
-                <MyQrScreen
-                  navigation={props.navigation}
-                  balance={accountInfo.balance}
-                  name={accountInfo.name}
-                  loggedIn={loggedIn} />
-              </>
-            )}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="viGD">
-            {(props) => (
-              <>
-                <Load />
-                <ViGD name={accountInfo.name} navigation={props.navigation} />
-              </>
-            )}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="thongbao">
-            {(props) => (
-              <>
-                <Load />
-                <Notification navigation={props.navigation} />
-              </>
-            )}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="chuyentien">
-            {(props) => (
-              <>
-                <Load />
-                <CTPage navigation={props.navigation} />
-              </>
-            )}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="qua">
-            {(props) => (
-              <>
-                <Load />
-                <Gift navigation={props.navigation} />
-              </>)}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="xacnhan">
-            {(props) => (
-              <>
-                <Load />
-                <XNPage
-                  navigation={props.navigation}
-                  balance={accountInfo.balance}
-                  name={accountInfo.name} />
-              </>
-            )}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="chuyentiendenvi">
-            {(props) => (
-              <>
-                <Load />
-                <CTDenViPage
-                  navigation={props.navigation}
-                  balance={accountInfo.balance}
-                  name={accountInfo.name} />
-              </>
-            )}
-          </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="menu">
-            {(props) => (
-              <>
-                <Load />
-                <MenuScreen
+      <>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="home">
+            <Stack.Screen options={{ headerShown: false }} name="home">
+              {(props) => (
+                <HomeScreen
                   navigation={props.navigation}
                   balance={accountInfo.balance}
                   loggedIn={loggedIn}
                   name={accountInfo.name}
-                  setLogin={setLogin} />
-              </>
-            )}
-          </Stack.Screen>
-        </Stack.Navigator>
-      </NavigationContainer><Load /></>
+                  accountInfo={accountInfo}
+                />
+              )}
+            </Stack.Screen>
+            <Stack.Screen options={{ headerShown: false }} name="login">
+              {(props) => (
+                <LoginScreen
+                  navigation={props.navigation}
+                  number={accountInfo.number}
+                  password={accountInfo.password}
+                  setLogin={setLogin}
+                  accountList={accountList}
+                  setAccountInfo={setAccountInfo}
+                  loggedIn={loggedIn}
+                />
+              )}
+            </Stack.Screen>
+            <Stack.Screen options={{ headerShown: false }} name="naptien">
+              {(props) => (
+                <>
+                  <Load />
+                  <NTHead
+                    navigation={props.navigation}
+                    balance={accountInfo.balance}
+                  />
+                </>
+              )}
+            </Stack.Screen>
+            <Stack.Screen options={{ headerShown: false }} name="xacnhanNT">
+              {(props) => (
+                <>
+                  <Load />
+                  <XNPage
+                    navigation={props.navigation}
+                    balance={accountInfo.balance}
+                    name={accountInfo.name}
+                    setAccountInfo={setAccountInfo}
+                  />
+                </>
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen options={{ headerShown: false }} name="myQR">
+              {(props) => (
+                <>
+                  <Load />
+                  <MyQrScreen
+                    navigation={props.navigation}
+                    balance={accountInfo.balance}
+                    name={accountInfo.name}
+                    loggedIn={loggedIn}
+                    accountInfo={accountInfo}
+                  />
+                </>
+              )}
+            </Stack.Screen>
+            <Stack.Screen options={{ headerShown: false }} name="viGD">
+              {(props) => (
+                <>
+                  <Load />
+                  <ViGD name={accountInfo.name} navigation={props.navigation} />
+                </>
+              )}
+            </Stack.Screen>
+            <Stack.Screen options={{ headerShown: false }} name="thongbao">
+              {(props) => (
+                <>
+                  <Load />
+                  <Notification navigation={props.navigation} />
+                </>
+              )}
+            </Stack.Screen>
+            <Stack.Screen options={{ headerShown: false }} name="chuyentien">
+              {(props) => (
+                <>
+                  <Load />
+                  <CTPage navigation={props.navigation} />
+                </>
+              )}
+            </Stack.Screen>
+            <Stack.Screen options={{ headerShown: false }} name="qua">
+              {(props) => (
+                <>
+                  <Load />
+                  <Gift navigation={props.navigation} />
+                </>
+              )}
+            </Stack.Screen>
+            <Stack.Screen options={{ headerShown: false }} name="xacnhan">
+              {(props) => (
+                <>
+                  <Load />
+                  <XNPage
+                    accountInfo={accountInfo}
+                    receiver={receiver}
+                    sendAmount={sendAmount}
+                    navigation={props.navigation}
+                    balance={accountInfo.balance}
+                    name={accountInfo.name}
+                  />
+                </>
+              )}
+            </Stack.Screen>
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="chuyentiendenvi"
+            >
+              {(props) => (
+                <>
+                  <Load />
+                  <CTDenViPage
+                    navigation={props.navigation}
+                    balance={accountInfo.balance}
+                    name={accountInfo.name}
+                    accountInfo={accountInfo}
+                    accountList={accountList}
+                    setReceiver={setReceiver}
+                    setAmount={setAmount}
+                  />
+                </>
+              )}
+            </Stack.Screen>
+            <Stack.Screen options={{ headerShown: false }} name="menu">
+              {(props) => (
+                <>
+                  <Load />
+                  <MenuScreen
+                    navigation={props.navigation}
+                    balance={accountInfo.balance}
+                    loggedIn={loggedIn}
+                    name={accountInfo.name}
+                    setLogin={setLogin}
+                    setAccountInfo={setAccountInfo}
+                  />
+                </>
+              )}
+            </Stack.Screen>
+          </Stack.Navigator>
+        </NavigationContainer>
+        <Load />
+      </>
     );
 }
 const styles = StyleSheet.create({

@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { Componen, useState } from "react";
+import React, { Componen, useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   Platform,
@@ -82,6 +82,7 @@ export default function HomeScreen(props) {
       props.navigation.navigate("login");
     }
   };
+
   return (
     <>
       <Load />

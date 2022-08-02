@@ -24,6 +24,12 @@ const MenuScreen = (props) => {
   const logOut = () => {
     props.setLogin(false);
     props.navigation.navigate("home");
+    props.setAccountInfo({
+      name: "",
+      password: "",
+      balance: "",
+      number: "",
+    });
   };
 
   return (

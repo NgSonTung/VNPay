@@ -25,10 +25,15 @@ export default function CTDenViPage(props) {
   return (
     <View>
       <CTDenViHeader navigation={props.navigation} />
-      <CTDenViMain 
-      name={props.name} 
-      xacnhan={xacnhan} 
-      navigation={props.navigation}
+      <CTDenViMain
+        name={props.name}
+        xacnhan={xacnhan}
+        balance={props.balance}
+        accountInfo={props.accountInfo}
+        setAmount={props.setAmount}
+        setReceiver={props.setReceiver}
+        navigation={props.navigation}
+        accountList={props.accountList}
       />
       {/* <CTDenViFooter xacnhan={xacnhan} navigation={props.navigation} /> */}
     </View>
